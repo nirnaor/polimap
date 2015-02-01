@@ -5,7 +5,18 @@ namespace :parse do
   task knesset: :environment do
 
     def parse_member(url)
-      puts url
+      doc = Nokogiri::HTML(open(url))
+      member_node = doc.css("td.Name")
+      name_node = member_node.children[0]
+      if name_node.nil?
+        puts "BAD URL: #{url}"
+        return
+      end
+
+      name = name_node.text.squish
+      party = member_node.children[1].text.squish
+      binding.pry
+      puts "#{name}: #{party}"
     end
 
 
@@ -26,7 +37,8 @@ namespace :parse do
 
 
     knesset_number = 19
-    parse_knesset(knesset_number)
+    # parse_knesset(knesset_number)
+    parse_member("http://www.knesset.gov.il/mk/heb/mk.asp?mk_individual_id_t=857")
 
   end
 
