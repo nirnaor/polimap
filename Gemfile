@@ -42,3 +42,4 @@ gem 'nokogiri'
 gem 'pry'
 gem 'pry-byebug'
 gem "haml-rails", "~> 0.8"
+gem 'addressable'
