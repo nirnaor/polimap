@@ -41,3 +41,4 @@ gem 'spring',        group: :development
 gem 'nokogiri'
 gem 'pry'
 gem 'pry-byebug'
+gem "haml-rails", "~> 0.8"
