@@ -3,7 +3,7 @@
   %head
     :css
       html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-    %script{:src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyAkaFB8bvQfKhDhQAlY4uVmcD9Xg7i9zdA", :type => "text/javascript"}
+    %script{:src => "https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false&key=AIzaSyAkaFB8bvQfKhDhQAlY4uVmcD9Xg7i9zdA", :type => "text/javascript"}
       :cdata
     :javascript
       function initialize() {
