@@ -27,19 +27,28 @@ namespace :parse do
     end
 
     def get_location(city)
-      require 'net/http'
       require 'addressable/uri'
 
       geocode_url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{city}&key=AIzaSyAkaFB8bvQfKhDhQAlY4uVmcD9Xg7i9zdA"
       geocode_uri = Addressable::URI.parse(geocode_url)
 
 
-      url = URI.parse(geocode_uri.normalize)
-      req = Net::HTTP::Get.new(url.to_s)
-      res = Net::HTTP.start(url.host, url.port) {|http|
-          http.request(req)
-      }
-      puts res.body
+      require "net/https"
+      require "uri"
+
+      uri = URI.parse(geocode_uri.normalize)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+      request = Net::HTTP::Get.new(uri.request_uri)
+
+      response = http.request(request)
+      response.body
+      response["header-here"] # All headers are lowercase
+      res = JSON.parse(response.body)
+      coordinate = res["results"][0]["geometry"]["location"]
+      puts coordinate
     end
 
 
