@@ -4,6 +4,11 @@
   %b Name:
   = @member.name
 
+%p
+  %b Parties:
+  - @member.parties.each do |party|
+    = link_to party.name.titleize, party_url(party)
+
 = link_to 'Edit', edit_member_path(@member)
 \|
 = link_to 'Back', members_path
