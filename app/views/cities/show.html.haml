@@ -1,0 +1,19 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @city.name
+%p
+  %b Lat:
+  = @city.lat
+%p
+  %b Lng:
+  = @city.lng
+%p
+  %b Members:
+  - @city.members.each do |member|
+    = link_to member.name.titleize, member_url(member)
+
+= link_to 'Edit', edit_city_path(@city)
+\|
+= link_to 'Back', cities_path

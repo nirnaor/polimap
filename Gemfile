@@ -41,5 +41,8 @@ gem 'spring',        group: :development
 gem 'nokogiri'
 gem 'pry'
 gem 'pry-byebug'
+gem "better_errors"
+gem "binding_of_caller"
 gem "haml-rails", "~> 0.8"
 gem 'addressable'
+

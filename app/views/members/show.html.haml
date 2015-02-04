@@ -8,6 +8,10 @@
   %b Parties:
   - @member.parties.each do |party|
     = link_to party.name.titleize, party_url(party)
+%p
+  %b City:
+  = link_to @member.city.name.titleize, city_url(@member.city)
+
 
 = link_to 'Edit', edit_member_path(@member)
 \|
