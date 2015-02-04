@@ -1,4 +1,10 @@
 $ ->
+  add_class = (el, className) ->
+    if (el.classList)
+        el.classList.add(className)
+    else
+        el.className += ' ' + className
+
   infowindow = new google.maps.InfoWindow(content: "bla bla")
   add_marker = (city_members, coordinate)->
     # Markers and info window
@@ -14,14 +20,16 @@ $ ->
       header.innerHTML = city
 
       members_elements = document.createElement("div")
+      add_class(members_elements, "marker")
       members_elements.appendChild header
       city_members.forEach (item,i) ->
         name = document.createElement("label")
         name.innerHTML = item.name
         party = document.createElement("a")
-        party.innerHTML = item.parties[0].name
+        party.innerHTML = item.parties[0].name.substring(0, 30)
 
         container = document.createElement("div")
+        add_class(container, "member")
         container.appendChild name
         container.appendChild party
 
