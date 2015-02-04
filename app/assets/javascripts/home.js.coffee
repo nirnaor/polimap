@@ -1,10 +1,7 @@
 $ ->
-  $(document).on "map_loaded", ->
-    console.log "google maps is loaded", map
-    relevant_members =  JSON.parse(gon.members)
 
-  
-    city_map = {} 
+  build_heat_map = (relevant_members)->
+    city_map = {}
     relevant_members.map (member)->
       city = member.city.name
       if city_map[city] is undefined
@@ -28,6 +25,10 @@ $ ->
     )
     heatmap.setMap(map)
 
+  $(document).on "map_loaded", ->
+    console.log "google maps is loaded", map
+    relevant_members =  JSON.parse(gon.members)
+    build_heat_map relevant_members
     #myLatlng = new google.maps.LatLng(31.899121,34.679601)
 #    marker = new (google.maps.Marker)(
 #      position: myLatlng
