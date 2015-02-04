@@ -1,15 +1,12 @@
 $ ->
+  infowindow = new google.maps.InfoWindow(content: "bla bla")
   add_marker = (city_members, coordinate)->
     # Markers and info window
-    infowindow = new google.maps.InfoWindow(content: "bla bla")
     marker = new google.maps.Marker(
         position: coordinate
         map: map
     )
     google.maps.event.addListener(marker, 'click', (a)-> 
-      infowindow = new google.maps.InfoWindow(
-        content: "NIRNAOR"
-      )
       infowindow.open(map, marker)
     )
 
