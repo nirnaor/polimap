@@ -7,11 +7,10 @@ $ ->
         map: map
     )
     google.maps.event.addListener(marker, 'click', (a)-> 
-      window_position = new google.maps.LatLng(a.latLng.k, a.latLng.D)
       infowindow = new google.maps.InfoWindow(
-        content: "NIRNAOR", position: window_position
+        content: "NIRNAOR"
       )
-      infowindow.open(map)
+      infowindow.open(map, marker)
     )
 
 
