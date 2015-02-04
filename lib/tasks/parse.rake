@@ -4,8 +4,8 @@ namespace :parse do
   desc "TODO"
   task knesset: :environment do
     knesset_number = 19
-    # parse_knesset(knesset_number)
-    parse_member("http://www.knesset.gov.il/mk/heb/mk.asp?mk_individual_id_t=857")
+    parse_knesset(knesset_number)
+    # parse_member("http://www.knesset.gov.il/mk/heb/mk.asp?mk_individual_id_t=857")
   end
 
 
