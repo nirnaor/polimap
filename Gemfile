@@ -46,3 +46,4 @@ gem "binding_of_caller"
 gem "haml-rails", "~> 0.8"
 gem 'addressable'
 
+gem 'gon'

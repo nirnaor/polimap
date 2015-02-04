@@ -1,6 +1,7 @@
 $ ->
   $(document).on "map_loaded", ->
     console.log "google maps is loaded", map
+    console.log gon.members
 
     afula   = new google.maps.LatLng(32.613104, 35.284166)
     netanya = new google.maps.LatLng(32.327070, 34.857270)
