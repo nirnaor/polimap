@@ -5,8 +5,12 @@ $ ->
     marker = new google.maps.Marker(
         position: coordinate
         map: map
+        members: city_members
     )
     google.maps.event.addListener(marker, 'click', (a)-> 
+      city = marker.members[0].city.name
+      console.log city
+      infowindow.content = city
       infowindow.open(map, marker)
     )
 
