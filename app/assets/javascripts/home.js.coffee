@@ -9,8 +9,26 @@ $ ->
     )
     google.maps.event.addListener(marker, 'click', (a)-> 
       city = marker.members[0].city.name
-      console.log city
-      infowindow.content = city
+
+      header = document.createElement("h1")
+      header.innerHTML = city
+
+      members_elements = document.createElement("div")
+      members_elements.appendChild header
+      city_members.forEach (item,i) ->
+        name = document.createElement("label")
+        name.innerHTML = item.name
+        party = document.createElement("a")
+        party.innerHTML = item.parties[0].name
+
+        container = document.createElement("div")
+        container.appendChild name
+        container.appendChild party
+
+        members_elements.appendChild container
+
+
+      infowindow.content = members_elements
       infowindow.open(map, marker)
     )
 
