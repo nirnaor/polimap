@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :parties
+
   resources :members
 
   get 'home/index'
