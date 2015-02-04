@@ -4,8 +4,8 @@ namespace :parse do
   desc "TODO"
   task knesset: :environment do
     knesset_number = 19
-    parse_knesset(knesset_number)
-    # parse_member("http://www.knesset.gov.il/mk/heb/mk.asp?mk_individual_id_t=857")
+    # parse_knesset(knesset_number)
+    parse_member("http://www.knesset.gov.il/mk/heb/mk.asp?mk_individual_id_t=857")
   end
 
 
@@ -71,19 +71,25 @@ namespace :parse do
     if res["status"] == "OK"
       return res["results"][0]["geometry"]["location"]
     end
-    nil
+    puts "No location was found for #{city}"
+    {}
   end
 
   def save(name, party_name, city_name)
     member = Member.find_or_create_by(:name => name)
     party = Party.find_or_create_by(:name => party_name)
+    member.parties.append party
+
     city = City.find_by_name(city_name) || City.new(:name => city_name)
     if city.new_record?
       location = get_location(city_name)
-      city.lat = location[:lat]
-      city.lng = location[:lng]
+      city.lat = location["lat"]
+      city.lng = location["lng"]
+      # binding.pry
       city.save
     end
+    member.city = city
+    member.save
   end
 
 
