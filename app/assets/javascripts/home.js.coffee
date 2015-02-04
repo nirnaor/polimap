@@ -18,6 +18,22 @@ $ ->
       city = city_members[0].city
       coordinate = new google.maps.LatLng(city.lat, city.lng)
       heatMapData.push({location: coordinate, weight: city_members.length})
+      
+      # Markers and info window
+      infowindow = new google.maps.InfoWindow(content: "bla bla")
+      marker = new google.maps.Marker(
+          position: coordinate
+          city: city_name
+          map: map
+          title: 'Uluru (Ayers Rock)'
+      )
+      google.maps.event.addListener(marker, 'click', (a)-> 
+        window_position = new google.maps.LatLng(a.latLng.k, a.latLng.D)
+        infowindow = new google.maps.InfoWindow(
+          content: "NIRNAOR", position: window_position
+        )
+        infowindow.open(map)
+      )
 
     heatmap = new  google.maps.visualization.HeatmapLayer(
       data: heatMapData
