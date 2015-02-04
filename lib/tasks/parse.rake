@@ -4,8 +4,8 @@ namespace :parse do
   desc "TODO"
   task knesset: :environment do
     knesset_number = 19
-    # parse_knesset(knesset_number)
-    parse_member("http://www.knesset.gov.il/mk/heb/mk.asp?mk_individual_id_t=857")
+    parse_knesset(knesset_number)
+    # parse_member("http://www.knesset.gov.il/mk/heb/mk.asp?mk_individual_id_t=857")
   end
 
 
@@ -17,10 +17,12 @@ namespace :parse do
     # doc = Nokogiri::HTML(open('http://www.nokogiri.org/tutorials/installing_nokogiri.html'))
     doc = Nokogiri::HTML(open(url))
 
-    doc.css(".MKIconM, .MKIconF").each do |link|
+    links = doc.css(".MKIconM, .MKIconF")
+    links.each_with_index do |link,index|
         member_link = link.children.css("a").first
         next if member_link.nil?
         link_url =  member_link.attributes["href"].value
+        puts "#{index}/#{links.size()}"
         parse_member("#{base_url}/#{link_url}")
     end
   end
@@ -47,7 +49,6 @@ namespace :parse do
   end
 
   def get_location(city)
-    puts "getting location for #{city.reverse}"
     require 'addressable/uri'
 
     geocode_url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{city}&key=AIzaSyAkaFB8bvQfKhDhQAlY4uVmcD9Xg7i9zdA"
