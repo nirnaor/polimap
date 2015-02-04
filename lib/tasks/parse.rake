@@ -37,8 +37,7 @@ namespace :parse do
     name = name_node.text.squish
     party = member_node.children[1].text.squish
     city = get_city(doc)
-    location = get_location(city)
-    puts "#{name}: #{party}, #{city}, #{location}"
+    save(name, party, city)
   end
 
 
@@ -48,6 +47,7 @@ namespace :parse do
   end
 
   def get_location(city)
+    puts "getting location for #{city.reverse}"
     require 'addressable/uri'
 
     geocode_url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{city}&key=AIzaSyAkaFB8bvQfKhDhQAlY4uVmcD9Xg7i9zdA"
@@ -72,6 +72,18 @@ namespace :parse do
       return res["results"][0]["geometry"]["location"]
     end
     nil
+  end
+
+  def save(name, party_name, city_name)
+    member = Member.find_or_create_by(:name => name)
+    party = Party.find_or_create_by(:name => party_name)
+    city = City.find_by_name(city_name) || City.new(:name => city_name)
+    if city.new_record?
+      location = get_location(city_name)
+      city.lat = location[:lat]
+      city.lng = location[:lng]
+      city.save
+    end
   end
 
 
