@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20150204105346) do
 
   create_table "cities", force: true do |t|
     t.string   "name"
-    t.decimal  "lat",        precision: 10, scale: 6
-    t.decimal  "lng",        precision: 10, scale: 6
+    t.float    "lat"
+    t.float    "lng"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
