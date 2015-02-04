@@ -23,9 +23,7 @@ $ ->
       infowindow = new google.maps.InfoWindow(content: "bla bla")
       marker = new google.maps.Marker(
           position: coordinate
-          city: city_name
           map: map
-          title: 'Uluru (Ayers Rock)'
       )
       google.maps.event.addListener(marker, 'click', (a)-> 
         window_position = new google.maps.LatLng(a.latLng.k, a.latLng.D)
