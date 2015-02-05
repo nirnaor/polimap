@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Amount:
+  = @vote.amount
+%p
+  %b City:
+  = city_link(@vote)
+%p
+  %b Party:
+  = party_link(@vote)
+
+= link_to 'Edit', edit_vote_path(@vote)
+\|
+= link_to 'Back', votes_path

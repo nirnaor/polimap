@@ -26,3 +26,9 @@ bibi.update_attribute(:city,kesaria)
 zipi.update_attribute(:city,afula)
 stav.update_attribute(:city,telaviv)
 sheli.update_attribute(:city,telaviv)
+
+
+vote = Vote.create(:amount => 40)
+vote.city = afula
+vote.party = avoda
+vote.save
