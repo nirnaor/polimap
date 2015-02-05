@@ -6,18 +6,25 @@ class HomeController < ApplicationController
 
 
   def members_json
-    res = []
-    Member.all.each do |member|
-      res << member.as_json(:include => :parties).merge(:city => member.city.as_json)
+    unless Rails.cache.exist? :members
+      res = []
+      Member.all.each do |member|
+        res << member.as_json(:include => :parties).merge(:city => member.city.as_json)
+      end
+      Rails.cache.write(:members,res.to_json)
     end
-    res.to_json
+    Rails.cache.read :members
   end
 
   def votes_json
-    res = []
-    Vote.all.each do |vote|
-      res << vote.as_json(:include => :party).merge(:city => vote.city.as_json)
+    unless Rails.cache.exist? :votes
+      res = []
+      Vote.all.each do |vote|
+        res << vote.as_json(:include => :party).merge(:city => vote.city.as_json)
+      end
+      res.to_json
+      Rails.cache.write(:votes,res.to_json)
     end
-    res.to_json
+    Rails.cache.read :votes
   end
 end
