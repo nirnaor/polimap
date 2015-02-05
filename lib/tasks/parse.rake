@@ -60,12 +60,12 @@ namespace :parse do
 
     name = name_node.text.squish
     party = member_node.children[1].text.squish
-    city = get_city(doc)
+    city = parse_city(doc)
     save(name, party, city)
   end
 
 
-  def get_city(doc)
+  def parse_city(doc)
     # TODO: Find out how to parse the city. Currently I'll use this
     [ "תל אביב", "עפולה", "מטולה", "באר שבע", "לוד", "רמלה", "בית שאן", "ירושלים", "חיפה", "נתיבות", "שדרות" ].sample
   end
