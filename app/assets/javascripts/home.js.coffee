@@ -5,6 +5,10 @@ $ ->
     else
         el.className += ' ' + className
 
+  checked_parties = ->
+    $(".parties input:checked").map (el) ->
+      @getAttribute("value")
+
   parties_legend = ->
     parties_div = document.createElement("div")
     add_class parties_div, "parties"
@@ -14,9 +18,13 @@ $ ->
       add_class(party_div, "party")
       party_div.innerHTML = party.name
       party_div.setAttribute("party",party.name)
-      party_div.addEventListener "click", (ev)->
+      checkbox = document.createElement("input")
+      checkbox.setAttribute("type", "checkbox")
+      checkbox.setAttribute("value", party.name)
+      party_div.appendChild checkbox
+      checkbox.addEventListener "change", (ev)->
         p = @getAttribute "party"
-        build_cities_heat_map(p)
+        build_cities_heat_map(checked_parties())
       parties_div.appendChild party_div
 
     document.querySelector("body").appendChild parties_div
@@ -57,16 +65,21 @@ $ ->
       infowindow.open(map, marker)
     )
 
-  build_cities_heat_map = (relevant_party_name) ->
+  build_cities_heat_map = (relevant_parties) ->
     cities = JSON.parse(gon.cities)
     heatMapData = []
 
 
     for city in cities
       coordinate = new google.maps.LatLng(city.lat, city.lng)
-      party_vote = city.votes.filter (vote)-> vote.party.name == relevant_party_name
-      if party_vote.length > 0
-        heatMapData.push({location: coordinate, weight: party_vote[0].amount})
+      relevant_votes = city.votes.filter (vote)-> vote.party.name in relevant_parties
+
+      # itterate on party votes and sum the up for now
+      sum = 0
+      mapped = relevant_votes.forEach (vote) ->  sum += vote.amount
+      
+      if sum > 0
+        heatMapData.push({location: coordinate, weight: sum})
 
     heatmap.setData([])
     heatmap.setData(heatMapData)
