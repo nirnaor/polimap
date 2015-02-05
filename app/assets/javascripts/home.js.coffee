@@ -10,34 +10,34 @@ $ ->
       @getAttribute("value")
 
   parties_legend = ->
-    defaults = [
-      "הליכוד – תנועה לאומית ליברלית",
-      "יש עתיד",
-      "מפלגת העבודה הישראלית",
-      "הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה ",
-      "התאחדות הספרדים שומרי תורה – תנועת ש”ס ",
-      "יהדות התורה",
-      "התנועה בראשות ציפי לבני",
-      "בלד"
-      "חדש",
-      'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה',
-      "קדימה",
-      "מרצ",
-      'התאחדות הספרדים שומרי תורה – תנועת ש”ס'
-    ]
+    defaults = {
+      'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה': "rgb(140,81,10)"
+      "הליכוד – תנועה לאומית ליברלית": "rgb(191,129,45)"
+      "יהדות התורה": "rgb(223,194,125)"
+      'התאחדות הספרדים שומרי תורה – תנועת ש”ס':"rgb(246,232,195)"
+      "קדימה": "rgb(199,234,229)"
+      "יש עתיד":"rgb(199,234,229)"
+      "התנועה בראשות ציפי לבני": "rgb(128,205,193)"
+      "מפלגת העבודה הישראלית": "rgb(53,151,143)"
+      "מרצ": "rgb(1,102,94)"
+      "בלד":"rgb(1,102,94)"
+      "חדש":"rgb(1,102,94)"
+    }
+
+    pnames = Object.keys(defaults)
 
     parties_div = document.createElement("div")
     add_class parties_div, "parties"
     all_parties = gon.parties
     all_parties.forEach (party)->
-      return unless party.name in defaults
+      return unless party.name in pnames
       party_div = document.createElement("div")
       add_class(party_div, "party")
       party_div.innerHTML = party.name.substring(0,30)
       party_div.setAttribute("party",party.name)
       checkbox = document.createElement("input")
 
-      if party.name in defaults
+      if party.name in pnames
         checkbox.setAttribute("checked", "true")
       checkbox.setAttribute("type", "checkbox")
       checkbox.setAttribute("value", party.name)
