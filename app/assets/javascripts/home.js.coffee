@@ -69,8 +69,4 @@ $ ->
     heatmap.setMap(map)
 
   $(document).on "map_loaded", ->
-    console.log "google maps is loaded", map
-    relevant_members =  JSON.parse(gon.members)
-    relevant_votes =  JSON.parse(gon.votes)
-    # build_heat_map relevant_members
-    build_heat_map relevant_votes
+    uild_heat_map JSON.parse(gon.members)
