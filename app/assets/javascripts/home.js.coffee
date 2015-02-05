@@ -13,6 +13,8 @@ $ ->
       party_div = document.createElement("div")
       add_class(party_div, "party")
       party_div.innerHTML = party.name
+      party_div.setAttribute("party",party.name)
+      party_div.addEventListener "click", (ev)-> console.log this.getAttribute "party"
       parties_div.appendChild party_div
 
     document.querySelector("body").appendChild parties_div
