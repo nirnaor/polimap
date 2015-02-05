@@ -47,3 +47,4 @@ gem "haml-rails", "~> 0.8"
 gem 'addressable'
 
 gem 'gon'
+gem 'will_paginate', '~> 3.0.6'
