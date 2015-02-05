@@ -40,6 +40,25 @@ $ ->
       infowindow.open(map, marker)
     )
 
+  build_cities_heat_map = (cities) ->
+    heatMapData = []
+
+    relevant_party_name = "הרשימה הערבית המאוחדת"
+    relevant_party_name = "הליכוד – תנועה לאומית ליברלית"
+    console.log relevant_party_name
+    for city in cities
+      coordinate = new google.maps.LatLng(city.lat, city.lng)
+      party_vote = city.votes.filter (vote)-> vote.party.name == relevant_party_name
+      if party_vote.length > 0
+        console.log(city.name, party_vote[0].amount)
+        heatMapData.push({location: coordinate, weight: party_vote[0].amount})
+
+    heatmap = new  google.maps.visualization.HeatmapLayer(
+      data: heatMapData
+      radius: 20 * 4
+    )
+    heatmap.setMap(map)
+
 
   build_heat_map = (relevant_members)->
     city_map = {}
@@ -69,4 +88,5 @@ $ ->
     heatmap.setMap(map)
 
   $(document).on "map_loaded", ->
-    uild_heat_map JSON.parse(gon.members)
+    # build_heat_map JSON.parse(gon.members)
+    build_cities_heat_map(JSON.parse(gon.cities))
