@@ -60,7 +60,7 @@ $ ->
     heatmap.setMap(map)
 
 
-  build_heat_map = (relevant_members)->
+  build_members_heat_map = (relevant_members)->
     city_map = {}
     relevant_members.map (member)->
       city = member.city.name
@@ -88,5 +88,5 @@ $ ->
     heatmap.setMap(map)
 
   $(document).on "map_loaded", ->
-    # build_heat_map JSON.parse(gon.members)
-    build_cities_heat_map(JSON.parse(gon.cities))
+    build_members_heat_map JSON.parse(gon.members)
+    # build_cities_heat_map(JSON.parse(gon.cities))
