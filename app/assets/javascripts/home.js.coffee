@@ -14,7 +14,9 @@ $ ->
       add_class(party_div, "party")
       party_div.innerHTML = party.name
       party_div.setAttribute("party",party.name)
-      party_div.addEventListener "click", (ev)-> console.log this.getAttribute "party"
+      party_div.addEventListener "click", (ev)->
+        p = @getAttribute "party"
+        build_cities_heat_map(p)
       parties_div.appendChild party_div
 
     document.querySelector("body").appendChild parties_div
@@ -55,11 +57,10 @@ $ ->
       infowindow.open(map, marker)
     )
 
-  build_cities_heat_map = (cities) ->
+  build_cities_heat_map = (relevant_party_name) ->
+    cities = JSON.parse(gon.cities)
     heatMapData = []
 
-    relevant_party_name = "הרשימה הערבית המאוחדת"
-    relevant_party_name = "הליכוד – תנועה לאומית ליברלית"
     console.log relevant_party_name
     for city in cities
       coordinate = new google.maps.LatLng(city.lat, city.lng)
@@ -104,5 +105,6 @@ $ ->
 
   $(document).on "map_loaded", ->
     # build_members_heat_map JSON.parse(gon.members)
-    build_cities_heat_map(JSON.parse(gon.cities))
     parties_legend()
+    first_party = document.querySelector(".parties").children[0].getAttribute("party")
+    build_cities_heat_map(first_party)
