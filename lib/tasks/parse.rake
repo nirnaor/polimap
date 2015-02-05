@@ -18,7 +18,7 @@ namespace :parse do
     vote_counter = 0
 
 
-    csv_array.to_a[1..-1].each do |city_votes|
+    csv_array.to_a[1..10].each do |city_votes|
       city_name = city_votes.shift
       city_votes.each_with_index do |vote,vote_index|
         party_vote = city_votes[vote_index]
@@ -26,6 +26,10 @@ namespace :parse do
 
         vote_counter += 1
         puts "#{vote_counter}-#{city_name}:#{party_name}-#{party_vote}"
+        vote = Vote.create(:amount => party_vote)
+        vote.city = city_by city_name
+        vote.party = party_by party_name
+        vote.save
       end
     end
   end
