@@ -8,6 +8,28 @@ namespace :parse do
     # parse_member("http://www.knesset.gov.il/mk/heb/mk.asp?mk_individual_id_t=857")
   end
 
+  task votes: :environment do
+    require 'csv'
+    filename = "#{Rails.root}/lib/tasks/expc_replaced2csvnocitycodes.csv"
+    csv_array = CSV.foreach(filename)
+
+    # Removing the first item from parties since it's effecting the matrix structure
+    parties = csv_array.first[1..-1]
+    vote_counter = 0
+
+
+    csv_array.to_a[1..-1].each do |city_votes|
+      city_name = city_votes.shift
+      city_votes.each_with_index do |vote,vote_index|
+        party_vote = city_votes[vote_index]
+        party_name = parties[vote_index]
+
+        vote_counter += 1
+        puts "#{vote_counter}-#{city_name}:#{party_name}-#{party_vote}"
+      end
+    end
+  end
+
 
 
 
