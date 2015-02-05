@@ -71,4 +71,6 @@ $ ->
   $(document).on "map_loaded", ->
     console.log "google maps is loaded", map
     relevant_members =  JSON.parse(gon.members)
-    build_heat_map relevant_members
+    relevant_votes =  JSON.parse(gon.votes)
+    # build_heat_map relevant_members
+    build_heat_map relevant_votes
