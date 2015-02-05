@@ -100,13 +100,18 @@ namespace :parse do
 
   def save(name, party_name, city_name)
     member = Member.find_or_create_by(:name => name)
-    party = Party.find_or_create_by(:name => party_name)
+    party = party_by(party_name)
     member.parties.append party
 
     city = city_by city_name
     member.city = city
     member.save
   end
+
+  def party_by(party_name)
+    Party.find_or_create_by(:name => party_name)
+  end
+
 
   def city_by(city_name)
     city = City.find_by_name(city_name) || City.new(:name => city_name)
