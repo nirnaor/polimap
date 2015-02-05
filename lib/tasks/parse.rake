@@ -18,7 +18,7 @@ namespace :parse do
     vote_counter = 0
 
 
-    csv_array.to_a[1..10].each do |city_votes|
+    csv_array.to_a[100..300].each do |city_votes|
       city_name = city_votes.shift
       city_votes.each_with_index do |vote,vote_index|
         party_vote = city_votes[vote_index]
