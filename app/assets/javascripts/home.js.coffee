@@ -61,17 +61,15 @@ $ ->
     cities = JSON.parse(gon.cities)
     heatMapData = []
 
+
     for city in cities
       coordinate = new google.maps.LatLng(city.lat, city.lng)
       party_vote = city.votes.filter (vote)-> vote.party.name == relevant_party_name
       if party_vote.length > 0
         heatMapData.push({location: coordinate, weight: party_vote[0].amount})
 
-    heatmap = new  google.maps.visualization.HeatmapLayer(
-      data: heatMapData
-      radius: 20 * 4
-    )
-    heatmap.setMap(map)
+    heatmap.setData([])
+    heatmap.setData(heatMapData)
 
 
   build_members_heat_map = (relevant_members)->
@@ -101,7 +99,11 @@ $ ->
     heatmap.setMap(map)
 
   $(document).on "map_loaded", ->
+    window.heatmap = new  google.maps.visualization.HeatmapLayer(
+      radius: 20 * 4
+    )
+    heatmap.setMap(map)
     # build_members_heat_map JSON.parse(gon.members)
     parties_legend()
     first_party = document.querySelector(".parties").children[0].getAttribute("party")
-    build_cities_heat_map(first_party)
+    # build_cities_heat_map(first_party)
