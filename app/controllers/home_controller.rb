@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     gon.members = members_json
-    gon.votes = votes_json
+    gon.cities = cities_json
   end
 
 
@@ -16,15 +16,21 @@ class HomeController < ApplicationController
     Rails.cache.read :members
   end
 
-  def votes_json
-    unless Rails.cache.exist? :votes
+  def cities_json
+    unless Rails.cache.exist? :cities
       res = []
-      Vote.all.each do |vote|
-        res << vote.as_json(:include => :party).merge(:city => vote.city.as_json)
+      City.all.each do |city|
+        city_json = city.as_json
+        votes = []
+        city.votes.each do |city_vote|
+          votes << city_vote.as_json(:include => :party)
+        end
+        city_json = city_json.merge(:votes => votes)
+        res << city_json
       end
       res.to_json
-      Rails.cache.write(:votes,res.to_json)
+      Rails.cache.write(:cities,res.to_json)
     end
-    Rails.cache.read :votes
+    Rails.cache.read :cities
   end
 end
