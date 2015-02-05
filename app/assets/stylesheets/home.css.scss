@@ -11,3 +11,13 @@
     font-weight: bold;
   }
 }
+.parties{
+  position: absolute;
+  border: solid red 3px;
+  font-size: 16px;
+  color: blue;
+  top: 10px;
+  left: 75px;
+  height: 88px;
+  overflow: scroll;
+}

@@ -5,6 +5,19 @@ $ ->
     else
         el.className += ' ' + className
 
+  parties_legend = ->
+    parties_div = document.createElement("div")
+    add_class parties_div, "parties"
+    all_parties = gon.parties
+    all_parties.forEach (party)->
+      party_div = document.createElement("div")
+      add_class(party_div, "party")
+      party_div.innerHTML = party.name
+      parties_div.appendChild party_div
+
+    document.querySelector("body").appendChild parties_div
+
+
   infowindow = new google.maps.InfoWindow(content: "bla bla")
   add_marker = (city_members, coordinate)->
     # Markers and info window
@@ -88,5 +101,6 @@ $ ->
     heatmap.setMap(map)
 
   $(document).on "map_loaded", ->
-    build_members_heat_map JSON.parse(gon.members)
-    # build_cities_heat_map(JSON.parse(gon.cities))
+    # build_members_heat_map JSON.parse(gon.members)
+    build_cities_heat_map(JSON.parse(gon.cities))
+    parties_legend()
