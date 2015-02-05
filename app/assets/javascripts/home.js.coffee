@@ -10,15 +10,35 @@ $ ->
       @getAttribute("value")
 
   parties_legend = ->
+    defaults = [
+      "הליכוד – תנועה לאומית ליברלית",
+      "יש עתיד",
+      "מפלגת העבודה הישראלית",
+      "הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה ",
+      "התאחדות הספרדים שומרי תורה – תנועת ש”ס ",
+      "יהדות התורה",
+      "התנועה בראשות ציפי לבני",
+      "בלד"
+      "חדש",
+      'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה',
+      "קדימה",
+      "מרצ",
+      'התאחדות הספרדים שומרי תורה – תנועת ש”ס'
+    ]
+
     parties_div = document.createElement("div")
     add_class parties_div, "parties"
     all_parties = gon.parties
     all_parties.forEach (party)->
+      return unless party.name in defaults
       party_div = document.createElement("div")
       add_class(party_div, "party")
-      party_div.innerHTML = party.name
+      party_div.innerHTML = party.name.substring(0,30)
       party_div.setAttribute("party",party.name)
       checkbox = document.createElement("input")
+
+      if party.name in defaults
+        checkbox.setAttribute("checked", "true")
       checkbox.setAttribute("type", "checkbox")
       checkbox.setAttribute("value", party.name)
       party_div.appendChild checkbox
@@ -119,4 +139,4 @@ $ ->
     # build_members_heat_map JSON.parse(gon.members)
     parties_legend()
     first_party = document.querySelector(".parties").children[0].getAttribute("party")
-    # build_cities_heat_map(first_party)
+    build_cities_heat_map(checked_parties())
