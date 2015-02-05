@@ -61,12 +61,10 @@ $ ->
     cities = JSON.parse(gon.cities)
     heatMapData = []
 
-    console.log relevant_party_name
     for city in cities
       coordinate = new google.maps.LatLng(city.lat, city.lng)
       party_vote = city.votes.filter (vote)-> vote.party.name == relevant_party_name
       if party_vote.length > 0
-        console.log(city.name, party_vote[0].amount)
         heatMapData.push({location: coordinate, weight: party_vote[0].amount})
 
     heatmap = new  google.maps.visualization.HeatmapLayer(
@@ -85,7 +83,6 @@ $ ->
       city_map[city].push member
 
       
-    console.log city_map
 
     heatMapData = []
     for city_name, city_members of city_map
