@@ -103,16 +103,20 @@ namespace :parse do
     party = Party.find_or_create_by(:name => party_name)
     member.parties.append party
 
+    city = city_by city_name
+    member.city = city
+    member.save
+  end
+
+  def city_by(city_name)
     city = City.find_by_name(city_name) || City.new(:name => city_name)
     if city.new_record?
       location = get_location(city_name)
       city.lat = location["lat"]
       city.lng = location["lng"]
-      # binding.pry
       city.save
     end
-    member.city = city
-    member.save
+    city
   end
 
 
