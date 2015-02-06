@@ -23,3 +23,17 @@ body{
     margin-left: 22px;
   }
 }
+
+
+.all-gradients{
+  border: solid blue 3px;
+  position: absolute;
+  border: solid red 3px;
+  font-size: 16px;
+  top: 10px;
+  right: 0px;
+  .color-test{
+    height: 20px;
+    width: 100px;
+  }
+}

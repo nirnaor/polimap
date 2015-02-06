@@ -1,4 +1,47 @@
 $ ->
+
+  gradient_checker = ->
+    party_colors = ["7f3b08",
+     "#b35806",
+     "#e08214",
+     "#fdb863",
+     "#fee0b6",
+     "#f7f7f7",
+     "#d8daeb",
+     "#b2abd2",
+     "#8073ac",
+     "#542788",
+     "#2d004b"
+    ]
+
+    all_gradients = document.createElement("div")
+    all_gradients.classList.add("all-gradients")
+    document.querySelector("body").appendChild all_gradients
+
+    for j in [0..party_colors.length-2]
+      begin = party_colors[j]
+      end = party_colors[j+ 1]
+      length = 20
+      for i in [0..length-1]
+        rainbow = new Rainbow()
+        rainbow.setSpectrum(begin, end)
+        rainbow.setNumberRange(1, length)
+
+        color = rainbow.colourAt(i)
+        console.log color # based on the numbers from your array, this would return the color you wa
+
+        color_div = document.createElement("div")
+        color_div.classList.add("color-test")
+        color_div.innerHTML = color
+        all_gradients.appendChild(color_div)
+        $(color_div).css("background", "##{color}")
+
+      all_gradients.appendChild(document.createElement("br"))
+
+
+    
+
+
   window.parties_heatmaps = {}
   add_class = (el, className) ->
     if (el.classList)
@@ -168,3 +211,4 @@ $ ->
     parties_legend()
     first_party = document.querySelector(".parties").children[0].getAttribute("party")
     build_cities_heat_map(checked_parties()[0])
+    gradient_checker()
