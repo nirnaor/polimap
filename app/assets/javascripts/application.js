@@ -12,6 +12,7 @@
 //
 //= require jquery
 // = require rainbowvis
+// = require underscore
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .

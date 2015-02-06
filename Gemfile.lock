@@ -153,6 +153,7 @@ GEM
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    underscore-rails (1.7.0)
     will_paginate (3.0.7)
 
 PLATFORMS
@@ -178,4 +179,5 @@ DEPENDENCIES
   sqlite3
   turbolinks
   uglifier (>= 1.3.0)
+  underscore-rails
   will_paginate (~> 3.0.6)

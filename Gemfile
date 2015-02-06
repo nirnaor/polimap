@@ -49,3 +49,5 @@ gem 'addressable'
 gem 'gon'
 gem 'will_paginate', '~> 3.0.6'
 gem 'rainbowvis_rails'
+gem 'underscore-rails'
+
