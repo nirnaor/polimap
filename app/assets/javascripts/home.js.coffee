@@ -1,4 +1,18 @@
 $ ->
+  defaults = {
+    'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה': "rgb(140,81,10)"
+    "הליכוד – תנועה לאומית ליברלית": "rgb(191,129,45)"
+    "יהדות התורה": "rgb(223,194,125)"
+    'התאחדות הספרדים שומרי תורה – תנועת ש”ס':"rgb(246,232,195)"
+    "קדימה": "rgb(199,234,229)"
+    "יש עתיד":"rgb(199,234,229)"
+    "התנועה בראשות ציפי לבני": "rgb(128,205,193)"
+    "מפלגת העבודה הישראלית": "rgb(53,151,143)"
+    "מרצ": "rgb(1,102,94)"
+    "בלד":"rgb(1,102,94)"
+    "חדש":"rgb(1,102,94)"
+  }
+
 
   gradient_checker = ->
     party_colors = ["7f3b08",
@@ -73,20 +87,6 @@ $ ->
       @getAttribute("value")
 
   parties_legend = ->
-    defaults = {
-      'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה': "rgb(140,81,10)"
-      "הליכוד – תנועה לאומית ליברלית": "rgb(191,129,45)"
-      "יהדות התורה": "rgb(223,194,125)"
-      'התאחדות הספרדים שומרי תורה – תנועת ש”ס':"rgb(246,232,195)"
-      "קדימה": "rgb(199,234,229)"
-      "יש עתיד":"rgb(199,234,229)"
-      "התנועה בראשות ציפי לבני": "rgb(128,205,193)"
-      "מפלגת העבודה הישראלית": "rgb(53,151,143)"
-      "מרצ": "rgb(1,102,94)"
-      "בלד":"rgb(1,102,94)"
-      "חדש":"rgb(1,102,94)"
-    }
-
     pnames = Object.keys(defaults)
 
     parties_div = document.createElement("div")
@@ -210,5 +210,6 @@ $ ->
     # build_members_heat_map JSON.parse(gon.members)
     parties_legend()
     first_party = document.querySelector(".parties").children[0].getAttribute("party")
+    $(".parties input").first().attr("checked","true")
     build_cities_heat_map(checked_parties()[0])
     gradient_checker()
