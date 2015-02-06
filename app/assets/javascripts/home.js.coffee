@@ -1,4 +1,5 @@
 $ ->
+  window.parties_heatmaps = {}
   add_class = (el, className) ->
     if (el.classList)
         el.classList.add(className)
@@ -56,14 +57,16 @@ $ ->
       party_div.setAttribute("party",party.name)
       checkbox = document.createElement("input")
 
-      if party.name in pnames
-        checkbox.setAttribute("checked", "true")
+      # checkbox.setAttribute("checked", "true")
       checkbox.setAttribute("type", "checkbox")
       checkbox.setAttribute("value", party.name)
       party_div.appendChild checkbox
       checkbox.addEventListener "change", (ev)->
-        p = @getAttribute "party"
-        build_cities_heat_map(checked_parties())
+        p = @getAttribute("value")
+        if @checked
+          build_cities_heat_map(p)
+        else
+          parties_heatmaps[p].setMap null
       parties_div.appendChild party_div
 
     document.querySelector("body").appendChild parties_div
@@ -104,14 +107,14 @@ $ ->
       infowindow.open(map, marker)
     )
 
-  build_cities_heat_map = (relevant_parties) ->
+  build_cities_heat_map = (party) ->
     cities = JSON.parse(gon.cities)
     heatMapData = []
 
 
     for city in cities
       coordinate = new google.maps.LatLng(city.lat, city.lng)
-      relevant_votes = city.votes.filter (vote)-> vote.party.name in relevant_parties
+      relevant_votes = city.votes.filter (vote)-> vote.party.name == party
 
       # itterate on party votes and sum the up for now
       sum = 0
@@ -120,8 +123,13 @@ $ ->
       if sum > 0
         heatMapData.push({location: coordinate, weight: sum})
 
-    heatmap.setData([])
-    heatmap.setData(heatMapData)
+    party_heatmap = new  google.maps.visualization.HeatmapLayer(
+      radius: 20 * 4
+    )
+    party_heatmap.setMap(map)
+    party_heatmap.setData([])
+    party_heatmap.setData(heatMapData)
+    parties_heatmaps[party] = party_heatmap
     change_gradient()
 
 
@@ -159,4 +167,4 @@ $ ->
     # build_members_heat_map JSON.parse(gon.members)
     parties_legend()
     first_party = document.querySelector(".parties").children[0].getAttribute("party")
-    build_cities_heat_map(checked_parties())
+    build_cities_heat_map(checked_parties()[0])
