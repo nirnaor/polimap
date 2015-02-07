@@ -177,7 +177,7 @@ $ ->
         heatMapData.push({location: coordinate, weight: sum})
 
     party_heatmap = new  google.maps.visualization.HeatmapLayer(
-      radius: 20 * 1
+      radius: 20
     )
     party_heatmap.setMap(map)
     party_heatmap.setData([])
@@ -221,6 +221,6 @@ $ ->
   $(document).on "map_loaded", ->
     # build_members_heat_map JSON.parse(gon.members)
     parties_legend()
-    $(".parties input").first().attr("checked","true")
+    $(".parties input").eq(4).attr("checked","true")
     gradient_checker()
     build_cities_heat_map(checked_parties()[0])
