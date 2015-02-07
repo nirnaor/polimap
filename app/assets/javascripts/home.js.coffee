@@ -177,7 +177,7 @@ $ ->
         heatMapData.push({location: coordinate, weight: sum})
 
     party_heatmap = new  google.maps.visualization.HeatmapLayer(
-      radius: 20 * 4
+      radius: 20 * 1
     )
     party_heatmap.setMap(map)
     party_heatmap.setData([])
