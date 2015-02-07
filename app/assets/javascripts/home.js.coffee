@@ -41,7 +41,25 @@ $ ->
         color_div.innerHTML = color
         all_gradients.appendChild(color_div)
         $(color_div).css("background", "##{color}")
-        party_gradient_array.push("##{color}")
+
+
+        hexToRgb = (hex) ->
+          result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+          if result
+            r: parseInt(result[1], 16)
+            g: parseInt(result[2], 16)
+            b: parseInt(result[3], 16)
+          else
+            null
+
+        rgba_string = (color) ->
+          "rgba(#{color.r}, #{color.g}, #{color.b}, #{color.a})"
+
+
+
+        rgba_color = hexToRgb color
+        if i == 0 then rgba_color.a = 0 else rgba_color.a = 1
+        party_gradient_array.push(rgba_string(rgba_color))
 
       partries_gradients[party_name] = party_gradient_array
       all_gradients.appendChild(document.createElement("br"))
@@ -164,8 +182,10 @@ $ ->
     party_heatmap.setMap(map)
     party_heatmap.setData([])
     party_heatmap.setData(heatMapData)
-    party_heatmap.set('gradient',  gradient)
-    # heatmap.set('gradient',partries_gradients[party])
+    # party_heatmap.set('gradient',  gradient)
+    window.nir = partries_gradients[party]
+    party_heatmap.set('gradient', nir)
+    # party_heatmap.set('gradient', gradient)
     parties_heatmaps[party] = party_heatmap
     # change_gradient()
 
@@ -202,5 +222,5 @@ $ ->
     # build_members_heat_map JSON.parse(gon.members)
     parties_legend()
     $(".parties input").first().attr("checked","true")
-    build_cities_heat_map(checked_parties()[0])
     gradient_checker()
+    build_cities_heat_map(checked_parties()[0])
