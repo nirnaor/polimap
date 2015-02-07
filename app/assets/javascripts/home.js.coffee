@@ -189,6 +189,43 @@ $ ->
     parties_heatmaps[party] = party_heatmap
     # change_gradient()
 
+  build_rational_cities_heat_map = (party) ->
+    cities = JSON.parse(gon.cities)
+    heatMapData = []
+
+
+    window.weights = {}
+    for city in cities
+      coordinate = new google.maps.LatLng(city.lat, city.lng)
+
+      relevant_votes = city.votes.map((vote)-> if vote.party.name in _(defaults).keys() then vote.amount else 0)
+      total_votes_in_city = relevant_votes.reduce((prev,current)-> prev + current )
+      # console.log("#{city.name}: #{total_votes_in_city}")
+
+      city_ratios = {}
+      for vote in city.votes
+        if vote.party.name in _(defaults).keys()
+          city_ratios[vote.party.name] = vote.amount / total_votes_in_city
+
+
+      
+      # City weight
+      weight = 0
+      for party, i in _(defaults).keys()
+        weight += city_ratios[party] * (i+1)
+
+      console.log("#{city.name}: #{weight}")
+      heatMapData.push({location: coordinate, weight: weight})
+
+    party_heatmap = new  google.maps.visualization.HeatmapLayer(
+      radius: 20 *3
+    )
+
+    party_heatmap.setMap(map)
+    party_heatmap.setData([])
+    party_heatmap.set('gradient',  gradient)
+    party_heatmap.setData(heatMapData)
+
 
   build_members_heat_map = (relevant_members)->
     city_map = {}
@@ -212,7 +249,7 @@ $ ->
 
     heatmap = new  google.maps.visualization.HeatmapLayer(
       data: heatMapData
-      radius: 20 * 4
+      radius: 20 * 40
     )
     # change_gradient()
     heatmap.setMap(map)
@@ -223,4 +260,5 @@ $ ->
     parties_legend()
     $(".parties input").eq(4).attr("checked","true")
     gradient_checker()
-    build_cities_heat_map(checked_parties()[0])
+    build_rational_cities_heat_map()
+    # build_cities_heat_map(checked_parties()[0])
