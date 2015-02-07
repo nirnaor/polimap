@@ -13,6 +13,8 @@ $ ->
     "חדש":"2d004b"
   }
 
+  window.partries_gradients = {}
+
 
   gradient_checker = ->
     party_colors = _(defaults).values()
@@ -24,21 +26,24 @@ $ ->
     for j in [0..party_colors.length-2]
       begin = party_colors[j]
       end = party_colors[j+ 1]
+      party_name = _(defaults).keys()[j]
       length = 20
+      party_gradient_array = []
       for i in [0..length-1]
         rainbow = new Rainbow()
         rainbow.setSpectrum(begin, end)
         rainbow.setNumberRange(1, length)
 
         color = rainbow.colourAt(i)
-        console.log color # based on the numbers from your array, this would return the color you wa
 
         color_div = document.createElement("div")
         color_div.classList.add("color-test")
         color_div.innerHTML = color
         all_gradients.appendChild(color_div)
         $(color_div).css("background", "##{color}")
+        party_gradient_array.push("##{color}")
 
+      partries_gradients[party_name] = party_gradient_array
       all_gradients.appendChild(document.createElement("br"))
 
 
@@ -52,23 +57,21 @@ $ ->
     else
         el.className += ' ' + className
 
-  change_gradient = ->
-    gradient = ['rgba(0, 255, 255, 0)',
-    'rgba(0, 255, 255, 1)',
-    'rgba(0, 191, 255, 1)',
-    'rgba(0, 127, 255, 1)',
-    'rgba(0, 63, 255, 1)',
-    'rgba(0, 0, 255, 1)',
-    'rgba(0, 0, 223, 1)',
-    'rgba(0, 0, 191, 1)',
-    'rgba(0, 0, 159, 1)',
-    'rgba(0, 0, 127, 1)',
-    'rgba(63, 0, 91, 1)',
-    'rgba(127, 0, 63, 1)',
-    'rgba(191, 0, 31, 1)',
-    'rgba(255, 0, 0, 1)'
-    ]
-    heatmap.set('gradient',gradient)
+  window.gradient = ['rgba(0, 255, 255, 0)',
+  'rgba(0, 255, 255, 1)',
+  'rgba(0, 191, 255, 1)',
+  'rgba(0, 127, 255, 1)',
+  'rgba(0, 63, 255, 1)',
+  'rgba(0, 0, 255, 1)',
+  'rgba(0, 0, 223, 1)',
+  'rgba(0, 0, 191, 1)',
+  'rgba(0, 0, 159, 1)',
+  'rgba(0, 0, 127, 1)',
+  'rgba(63, 0, 91, 1)',
+  'rgba(127, 0, 63, 1)',
+  'rgba(191, 0, 31, 1)',
+  'rgba(255, 0, 0, 1)'
+  ]
 
 
   checked_parties = ->
@@ -161,8 +164,10 @@ $ ->
     party_heatmap.setMap(map)
     party_heatmap.setData([])
     party_heatmap.setData(heatMapData)
+    party_heatmap.set('gradient',  gradient)
+    # heatmap.set('gradient',partries_gradients[party])
     parties_heatmaps[party] = party_heatmap
-    change_gradient()
+    # change_gradient()
 
 
   build_members_heat_map = (relevant_members)->
@@ -189,16 +194,13 @@ $ ->
       data: heatMapData
       radius: 20 * 4
     )
+    # change_gradient()
     heatmap.setMap(map)
+    heatmap.set('gradient', gradient)
 
   $(document).on "map_loaded", ->
-    window.heatmap = new  google.maps.visualization.HeatmapLayer(
-      radius: 20 * 4
-    )
-    heatmap.setMap(map)
     # build_members_heat_map JSON.parse(gon.members)
     parties_legend()
-    first_party = document.querySelector(".parties").children[0].getAttribute("party")
     $(".parties input").first().attr("checked","true")
     build_cities_heat_map(checked_parties()[0])
     gradient_checker()
