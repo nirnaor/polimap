@@ -217,8 +217,15 @@ $ ->
       console.log("#{city.name}: #{weight}")
       heatMapData.push({location: coordinate, weight: weight})
 
-    party_heatmap = new  google.maps.visualization.HeatmapLayer(
-      radius: 20 *3
+    meters = 12 * 1000
+    projection = new MercatorProjection()
+    window.party_heatmap = new  google.maps.visualization.HeatmapLayer(
+      radius: projection.getNewRadius(map,meters)
+    )
+    google.maps.event.addListener(map, 'zoom_changed', () ->
+      new_radius = projection.getNewRadius(map,meters)
+      console.log "zoom changed- changing to radius: #{new_radius}"
+      party_heatmap.setOptions(radius: new_radius)
     )
 
     party_heatmap.setMap(map)
