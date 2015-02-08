@@ -126,6 +126,7 @@ $ ->
 
 
   infowindow = new google.maps.InfoWindow(content: "bla bla")
+  markers = []
   add_marker = (city_ratios, coordinate, city,weight)->
     # Markers and info window
     marker = new google.maps.Marker(
@@ -134,7 +135,9 @@ $ ->
         ratios: city_ratios
         city: city
         weight: weight
+        visible: false
     )
+    markers.push(marker)
     google.maps.event.addListener(marker, 'click', (a)-> 
       city = marker.city.name
 
@@ -233,8 +236,12 @@ $ ->
     )
     google.maps.event.addListener(map, 'zoom_changed', () ->
       new_radius = projection.getNewRadius(map,meters)
-      console.log "zoom changed- changing to radius: #{new_radius}"
+      zoom_level = map.getZoom()
+      console.log "zoom changed to #{zoom_level}- changing to radius: #{new_radius}"
       party_heatmap.setOptions(radius: new_radius)
+
+      visible = zoom_level > 11
+      markers.forEach (marker)-> marker.setVisible(visible)
     )
 
     party_heatmap.setMap(map)
