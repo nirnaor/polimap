@@ -189,6 +189,23 @@ $ ->
     parties_heatmaps[party] = party_heatmap
     # change_gradient()
 
+  get_city_ratios = (city) ->
+    relevant_votes = city.votes.map((vote)-> if vote.party.name in _(defaults).keys() then vote.amount else 0)
+    total_votes_in_city = relevant_votes.reduce((prev,current)-> prev + current )
+    # console.log("#{city.name}: #{total_votes_in_city}")
+
+    city_ratios = {}
+    for vote in city.votes
+      if vote.party.name in _(defaults).keys()
+        city_ratios[vote.party.name] = vote.amount / total_votes_in_city
+    city_ratios
+
+  get_city_weight = (city_ratios)->
+    weight = 0
+    for party, i in _(defaults).keys()
+      weight += city_ratios[party] * (i+1)
+    weight
+
   build_rational_cities_heat_map = (party) ->
     cities = JSON.parse(gon.cities)
     heatMapData = []
@@ -198,21 +215,10 @@ $ ->
     for city in cities
       coordinate = new google.maps.LatLng(city.lat, city.lng)
 
-      relevant_votes = city.votes.map((vote)-> if vote.party.name in _(defaults).keys() then vote.amount else 0)
-      total_votes_in_city = relevant_votes.reduce((prev,current)-> prev + current )
-      # console.log("#{city.name}: #{total_votes_in_city}")
-
-      city_ratios = {}
-      for vote in city.votes
-        if vote.party.name in _(defaults).keys()
-          city_ratios[vote.party.name] = vote.amount / total_votes_in_city
-
-
+      city_ratios = get_city_ratios city
       
       # City weight
-      weight = 0
-      for party, i in _(defaults).keys()
-        weight += city_ratios[party] * (i+1)
+      weight = get_city_weight(city_ratios)
 
       console.log("#{city.name}: #{weight}")
       heatMapData.push({location: coordinate, weight: weight})
