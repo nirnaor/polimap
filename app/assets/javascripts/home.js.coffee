@@ -16,6 +16,13 @@ $ ->
   window.partries_gradients = {}
 
 
+  sort_by_value = ( hash )->
+    sortable = []
+    sortable.push [v,k] for k, v of hash
+    sortable.sort (a, b) ->  b[0]- a[0]
+
+
+
   gradient_checker = ->
     party_colors = _(defaults).values()
 
@@ -147,11 +154,13 @@ $ ->
       ratios_elements = document.createElement("div")
       add_class(ratios_elements, "marker")
       ratios_elements.appendChild header
-      for party, ratio of marker.ratios
+
+      sorted_ratios = sort_by_value(marker.ratios)
+      for party_ratio in sorted_ratios
         name = document.createElement("label")
-        name.innerHTML = party
+        name.innerHTML = party_ratio[1]
         party = document.createElement("a")
-        party.innerHTML = ratio
+        party.innerHTML = party_ratio[0]
 
         container = document.createElement("div")
         add_class(container, "member")
