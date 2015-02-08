@@ -158,9 +158,9 @@ $ ->
       sorted_ratios = sort_by_value(marker.ratios)
       for party_ratio in sorted_ratios
         name = document.createElement("label")
-        name.innerHTML = party_ratio[1]
-        party = document.createElement("a")
-        party.innerHTML = party_ratio[0]
+        name.innerHTML = party_ratio[1].substring(0,15)
+        party = document.createElement("label")
+        party.innerHTML = "#{(party_ratio[0]* 100).toString().substring(0,5)}%"
 
         container = document.createElement("div")
         add_class(container, "member")

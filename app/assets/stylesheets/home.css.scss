@@ -2,10 +2,17 @@ body{
   direction: rtl;
 }
 .member{
+  &:nth-child(2n){
+    background: grey;
+  }
 
   label{
-    margin-left: 20px;
-    width: 100px;
+    &:first-child{
+      width: 175px;
+    }
+
+    font-size: 21px;
+    width: 159px;
     display: inline-block;
     font-weight: bold;
   }
