@@ -126,37 +126,39 @@ $ ->
 
 
   infowindow = new google.maps.InfoWindow(content: "bla bla")
-  add_marker = (city_members, coordinate)->
+  add_marker = (city_ratios, coordinate, city,weight)->
     # Markers and info window
     marker = new google.maps.Marker(
         position: coordinate
         map: map
-        members: city_members
+        ratios: city_ratios
+        city: city
+        weight: weight
     )
     google.maps.event.addListener(marker, 'click', (a)-> 
-      city = marker.members[0].city.name
+      city = marker.city.name
 
       header = document.createElement("h1")
-      header.innerHTML = city
+      header.innerHTML = "#{city}-#{weight}"
 
-      members_elements = document.createElement("div")
-      add_class(members_elements, "marker")
-      members_elements.appendChild header
-      city_members.forEach (item,i) ->
+      ratios_elements = document.createElement("div")
+      add_class(ratios_elements, "marker")
+      ratios_elements.appendChild header
+      for party, ratio of marker.ratios
         name = document.createElement("label")
-        name.innerHTML = item.name
+        name.innerHTML = party
         party = document.createElement("a")
-        party.innerHTML = item.parties[0].name.substring(0, 30)
+        party.innerHTML = ratio
 
         container = document.createElement("div")
         add_class(container, "member")
         container.appendChild name
         container.appendChild party
 
-        members_elements.appendChild container
+        ratios_elements.appendChild container
 
 
-      infowindow.content = members_elements
+      infowindow.content = ratios_elements
       infowindow.open(map, marker)
     )
 
@@ -219,6 +221,7 @@ $ ->
       
       # City weight
       weight = get_city_weight(city_ratios)
+      add_marker(city_ratios, coordinate, city, weight)
 
       console.log("#{city.name}: #{weight}")
       heatMapData.push({location: coordinate, weight: weight})
