@@ -113,17 +113,21 @@ $ ->
       return unless party.name in pnames
       party_div = document.createElement("div")
       add_class(party_div, "party")
-      party_div.innerHTML = party.name.substring(0,30)
       party_div.setAttribute("party",party.name)
-      checkbox = document.createElement("input")
+      # checkbox = $("<paper-button flex="" horizontal="" center-center="" layout="" role="button" tabindex="0">Garlic</paper-button>")
+      checkbox = document.createElement("paper-button")
+      checkbox.setAttribute "toggle", ""
+      checkbox.setAttribute "party", party.name
+      checkbox.classList.add "colored"
+      checkbox.innerHTML = party.name.substring(0,30)
 
       # checkbox.setAttribute("checked", "true")
-      checkbox.setAttribute("type", "checkbox")
+      # checkbox.setAttribute("type", "checkbox")
       checkbox.setAttribute("value", party.name)
       party_div.appendChild checkbox
-      checkbox.addEventListener "change", (ev)->
-        p = @getAttribute("value")
-        if @checked
+      checkbox.addEventListener "click", (ev)->
+        p = @getAttribute "party"
+        if @active
           build_cities_heat_map(p)
         else
           parties_heatmaps[p].setMap null
@@ -293,4 +297,4 @@ $ ->
     $(".parties input").eq(4).attr("checked","true")
     gradient_checker()
     build_rational_cities_heat_map()
-    # build_cities_heat_map(checked_parties()[0])
+    # build_cities_heat_map("בלד")
