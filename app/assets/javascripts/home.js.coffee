@@ -23,57 +23,6 @@ $ ->
 
 
 
-  gradient_checker = ->
-    party_colors = _(defaults).values()
-
-    all_gradients = document.createElement("div")
-    all_gradients.classList.add("all-gradients")
-    document.querySelector("body").appendChild all_gradients
-
-    for j in [0..party_colors.length-2]
-      begin = party_colors[j]
-      end = party_colors[j+ 1]
-      party_name = _(defaults).keys()[j]
-      length = 20
-      party_gradient_array = []
-      for i in [0..length-1]
-        rainbow = new Rainbow()
-        rainbow.setSpectrum(begin, end)
-        rainbow.setNumberRange(1, length)
-
-        color = rainbow.colourAt(i)
-
-        color_div = document.createElement("div")
-        color_div.classList.add("color-test")
-        color_div.innerHTML = color
-        all_gradients.appendChild(color_div)
-        $(color_div).css("background", "##{color}")
-
-
-        hexToRgb = (hex) ->
-          result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-          if result
-            r: parseInt(result[1], 16)
-            g: parseInt(result[2], 16)
-            b: parseInt(result[3], 16)
-          else
-            null
-
-        rgba_string = (color) ->
-          "rgba(#{color.r}, #{color.g}, #{color.b}, #{color.a})"
-
-
-
-        rgba_color = hexToRgb color
-        if i == 0 then rgba_color.a = 0 else rgba_color.a = 1
-        party_gradient_array.push(rgba_string(rgba_color))
-
-      partries_gradients[party_name] = party_gradient_array
-      all_gradients.appendChild(document.createElement("br"))
-
-
-    
-
 
   window.parties_heatmaps = {}
   add_class = (el, className) ->
@@ -294,8 +243,7 @@ $ ->
 
   $(document).on "map_loaded", ->
     # build_members_heat_map JSON.parse(gon.members)
-    parties_legend()
+    # parties_legend()
     $(".parties input").eq(4).attr("checked","true")
-    gradient_checker()
     build_rational_cities_heat_map()
     # build_cities_heat_map("בלד")
