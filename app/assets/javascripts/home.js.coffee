@@ -25,11 +25,6 @@ $ ->
 
 
   window.parties_heatmaps = {}
-  add_class = (el, className) ->
-    if (el.classList)
-        el.classList.add(className)
-    else
-        el.className += ' ' + className
 
   window.gradient = ['rgba(0, 255, 255, 0)',
   'rgba(0, 255, 255, 1)',
@@ -52,34 +47,6 @@ $ ->
     $(".parties input:checked").map (el) ->
       @getAttribute("value")
 
-  parties_legend = ->
-    pnames = Object.keys(defaults)
-
-    parties_div = document.createElement("div")
-    add_class parties_div, "parties"
-    all_parties = gon.parties
-    all_parties.forEach (party)->
-      return unless party.name in pnames
-      party_div = document.createElement("div")
-      add_class(party_div, "party")
-      party_div.setAttribute("party",party.name)
-      # checkbox = $("<paper-button flex="" horizontal="" center-center="" layout="" role="button" tabindex="0">Garlic</paper-button>")
-      checkbox = document.createElement("paper-button")
-      checkbox.setAttribute "toggle", ""
-      checkbox.setAttribute "party", party.name
-      checkbox.classList.add "colored"
-      checkbox.innerHTML = party.name.substring(0,30)
-
-      # checkbox.setAttribute("checked", "true")
-      # checkbox.setAttribute("type", "checkbox")
-      checkbox.setAttribute("value", party.name)
-      party_div.appendChild checkbox
-      checkbox.addEventListener "click", (ev)->
-        p = @getAttribute "party"
-        alert "will now show #{p}"
-      parties_div.appendChild party_div
-
-    document.querySelector("body").appendChild parties_div
 
 
   infowindow = new google.maps.InfoWindow(content: "bla bla")
@@ -102,7 +69,7 @@ $ ->
       header.innerHTML = "#{city}-#{weight}"
 
       ratios_elements = document.createElement("div")
-      add_class(ratios_elements, "marker")
+      ratios_elements.classList.add "marker"
       ratios_elements.appendChild header
 
       sorted_ratios = sort_by_value(marker.ratios)
@@ -113,7 +80,7 @@ $ ->
         party.innerHTML = "#{(party_ratio[0]* 100).toString().substring(0,5)}%"
 
         container = document.createElement("div")
-        add_class(container, "member")
+        container.classList.add "member"
         container.appendChild name
         container.appendChild party
 
@@ -212,6 +179,5 @@ $ ->
 
   $(document).on "map_loaded", ->
     # build_members_heat_map JSON.parse(gon.members)
-    parties_legend()
     $(".parties input").eq(4).attr("checked","true")
     build_rational_cities_heat_map()
