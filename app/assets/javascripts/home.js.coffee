@@ -14,11 +14,6 @@ $ ->
   ]
 
 
-  sort_by_value = ( hash )->
-    sortable = []
-    sortable.push [v,k] for k, v of hash
-    sortable.sort (a, b) ->  b[0]- a[0]
-
   window.gradient = ['rgba(0, 255, 255, 0)',
   'rgba(0, 255, 255, 1)',
   'rgba(0, 191, 255, 1)',
