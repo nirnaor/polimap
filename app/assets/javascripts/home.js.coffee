@@ -76,10 +76,7 @@ $ ->
       party_div.appendChild checkbox
       checkbox.addEventListener "click", (ev)->
         p = @getAttribute "party"
-        if @active
-          build_cities_heat_map(p)
-        else
-          parties_heatmaps[p].setMap null
+        alert "will now show #{p}"
       parties_div.appendChild party_div
 
     document.querySelector("body").appendChild parties_div
@@ -128,34 +125,6 @@ $ ->
       infowindow.open(map, marker)
     )
 
-  build_cities_heat_map = (party) ->
-    cities = JSON.parse(gon.cities)
-    heatMapData = []
-
-
-    for city in cities
-      coordinate = new google.maps.LatLng(city.lat, city.lng)
-      relevant_votes = city.votes.filter (vote)-> vote.party.name == party
-
-      # itterate on party votes and sum the up for now
-      sum = 0
-      mapped = relevant_votes.forEach (vote) ->  sum += vote.amount
-      
-      if sum > 0
-        heatMapData.push({location: coordinate, weight: sum})
-
-    party_heatmap = new  google.maps.visualization.HeatmapLayer(
-      radius: 20
-    )
-    party_heatmap.setMap(map)
-    party_heatmap.setData([])
-    party_heatmap.setData(heatMapData)
-    # party_heatmap.set('gradient',  gradient)
-    window.nir = partries_gradients[party]
-    party_heatmap.set('gradient', nir)
-    # party_heatmap.set('gradient', gradient)
-    parties_heatmaps[party] = party_heatmap
-    # change_gradient()
 
   get_city_ratios = (city) ->
     relevant_votes = city.votes.map((vote)-> if vote.party.name in _(defaults).keys() then vote.amount else 0)
@@ -243,7 +212,6 @@ $ ->
 
   $(document).on "map_loaded", ->
     # build_members_heat_map JSON.parse(gon.members)
-    # parties_legend()
+    parties_legend()
     $(".parties input").eq(4).attr("checked","true")
     build_rational_cities_heat_map()
-    # build_cities_heat_map("בלד")
