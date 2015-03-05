@@ -14,16 +14,10 @@ $ ->
   ]
 
 
-
-
   sort_by_value = ( hash )->
     sortable = []
     sortable.push [v,k] for k, v of hash
     sortable.sort (a, b) ->  b[0]- a[0]
-
-
-
-
 
   window.gradient = ['rgba(0, 255, 255, 0)',
   'rgba(0, 255, 255, 1)',
@@ -40,12 +34,6 @@ $ ->
   'rgba(191, 0, 31, 1)',
   'rgba(255, 0, 0, 1)'
   ]
-
-
-  checked_parties = ->
-    $(".parties input:checked").map (el) ->
-      @getAttribute("value")
-
 
 
   infowindow = new google.maps.InfoWindow(content: "bla bla")
