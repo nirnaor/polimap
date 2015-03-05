@@ -1,5 +1,5 @@
 parties_legend = ->
-  pnames = Object.keys(defaults)
+  pnames = defaults
 
   parties_div = document.createElement("div")
   parties_div.classList.add "parties"

@@ -1,19 +1,19 @@
 $ ->
-  window.defaults = {
-    'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה': "7f3b08"
-    "הליכוד – תנועה לאומית ליברלית": "b35806"
-    "יהדות התורה": "e08214"
-    'התאחדות הספרדים שומרי תורה – תנועת ש”ס':"fdb863"
-    "קדימה": "fee0b6"
-    "יש עתיד":"f7f7f7"
-    "התנועה בראשות ציפי לבני": "f7f7f7"
-    "מפלגת העבודה הישראלית": "f7f7f7"
-    "מרצ": "f7f7f7"
-    "בלד":"542788"
-    "חדש":"2d004b"
-  }
+  window.defaults = [
+    'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה',
+    "הליכוד – תנועה לאומית ליברלית",
+    "יהדות התורה",
+    'התאחדות הספרדים שומרי תורה – תנועת ש”ס',
+    "קדימה",
+    "יש עתיד",
+    "התנועה בראשות ציפי לבני",
+    "מפלגת העבודה הישראלית",
+    "מרצ",
+    "בלד",
+    "חדש"
+  ]
 
-  window.partries_gradients = {}
+
 
 
   sort_by_value = ( hash )->
@@ -24,7 +24,6 @@ $ ->
 
 
 
-  window.parties_heatmaps = {}
 
   window.gradient = ['rgba(0, 255, 255, 0)',
   'rgba(0, 255, 255, 1)',
@@ -94,19 +93,19 @@ $ ->
 
 
   get_city_ratios = (city) ->
-    relevant_votes = city.votes.map((vote)-> if vote.party.name in _(defaults).keys() then vote.amount else 0)
+    relevant_votes = city.votes.map((vote)-> if vote.party.name in defaults then vote.amount else 0)
     total_votes_in_city = relevant_votes.reduce((prev,current)-> prev + current )
     # console.log("#{city.name}: #{total_votes_in_city}")
 
     city_ratios = {}
     for vote in city.votes
-      if vote.party.name in _(defaults).keys()
+      if vote.party.name in defaults
         city_ratios[vote.party.name] = vote.amount / total_votes_in_city
     city_ratios
 
   get_city_weight = (city_ratios)->
     weight = 0
-    for party, i in _(defaults).keys()
+    for party, i in defaults
       weight += city_ratios[party] * (i+1)
     weight
 
@@ -149,35 +148,7 @@ $ ->
     party_heatmap.setData(heatMapData)
 
 
-  build_members_heat_map = (relevant_members)->
-    city_map = {}
-    relevant_members.map (member)->
-      city = member.city.name
-      if city_map[city] is undefined
-        city_map[city] = []
-      city_map[city].push member
-
-      
-
-    heatMapData = []
-    for city_name, city_members of city_map
-      # Get the location of the first member (since locations are the same for members
-      # in the same city)
-      city = city_members[0].city
-      coordinate = new google.maps.LatLng(city.lat, city.lng)
-      heatMapData.push({location: coordinate, weight: city_members.length})
-      
-      add_marker(city_members, coordinate)
-
-    heatmap = new  google.maps.visualization.HeatmapLayer(
-      data: heatMapData
-      radius: 20 * 40
-    )
-    # change_gradient()
-    heatmap.setMap(map)
-    heatmap.set('gradient', gradient)
 
   $(document).on "map_loaded", ->
-    # build_members_heat_map JSON.parse(gon.members)
     $(".parties input").eq(4).attr("checked","true")
     build_rational_cities_heat_map()
