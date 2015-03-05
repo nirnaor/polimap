@@ -22,6 +22,9 @@ parties_legend = ->
     party_div.appendChild checkbox
     checkbox.addEventListener "click", (ev)->
       p = @getAttribute "party"
+      toast = document.querySelector('#toast2')
+      toast.text = "אתה צופה במפה של #{p}"
+      toast.show()
       party_heatmap.setMap(map)
       party_heatmap.setData([])
       party_heatmap.setData(parties_map[p])

@@ -20,4 +20,8 @@
       }
       google.maps.event.addDomListener(window, 'load', initialize);
   %body
+    %paper-toast#toast2.core-transition.core-transition-bottom{:role => "alert", :style => "position: fixed; outline: none; z-index: 16; box-sizing: border-box; display: none;", :tabindex => "-1", :text => "Connection timed out. Showing limited messages.", "touch-action" => "none"}
+      %div{:onclick => "console.log('RETRY')", :style => "color: #eeff41;"}  מה זה אומר?
+    
+    %paper-toast.core-transition.core-transition-bottom{:id => :toast1, :role => "status", :style => "position: fixed; outline: none; display: none;", :tabindex => "-1", :text => "Your draft has been discarded.", "touch-action" => "none"}
     #map-canvas
