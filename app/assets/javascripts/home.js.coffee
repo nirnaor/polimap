@@ -174,7 +174,8 @@ $ ->
         ratios_elements.appendChild container
 
 
-      infowindow.content = ratios_elements
+      infowindow.close()
+      infowindow = new google.maps.InfoWindow(content: ratios_elements)
       infowindow.open(map, marker)
     )
 
