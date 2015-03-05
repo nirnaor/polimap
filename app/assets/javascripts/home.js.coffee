@@ -1,17 +1,4 @@
 $ ->
-  window.defaults = [
-    'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה',
-    "הליכוד – תנועה לאומית ליברלית",
-    "יהדות התורה",
-    'התאחדות הספרדים שומרי תורה – תנועת ש”ס',
-    "קדימה",
-    "יש עתיד",
-    "התנועה בראשות ציפי לבני",
-    "מפלגת העבודה הישראלית",
-    "מרצ",
-    "בלד",
-    "חדש"
-  ]
 
 
   window.gradient = ['rgba(0, 255, 255, 0)',
@@ -44,6 +31,7 @@ $ ->
         visible: false
     )
     markers.push(marker)
+    update_parties_map(city_ratios, city, coordinate)
     google.maps.event.addListener(marker, 'click', (a)-> 
       city = marker.city.name
 
@@ -107,7 +95,7 @@ $ ->
       weight = get_city_weight(city_ratios)
       add_marker(city_ratios, coordinate, city, weight)
 
-      console.log("#{city.name}: #{weight}")
+      # console.log("#{city.name}: #{weight}")
       heatMapData.push({location: coordinate, weight: weight})
 
     meters = 12 * 1000

@@ -22,7 +22,9 @@ parties_legend = ->
     party_div.appendChild checkbox
     checkbox.addEventListener "click", (ev)->
       p = @getAttribute "party"
-      alert "will now show #{p}"
+      party_heatmap.setMap(map)
+      party_heatmap.setData([])
+      party_heatmap.setData(parties_map[p])
     parties_div.appendChild party_div
 
   document.querySelector("body").appendChild parties_div
