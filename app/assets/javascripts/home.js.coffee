@@ -18,6 +18,7 @@ $ ->
   ]
 
 
+  return if typeof(google) is 'undefined'
   infowindow = new google.maps.InfoWindow(content: "bla bla")
   markers = []
   add_marker = (city_ratios, coordinate, city,weight)->
