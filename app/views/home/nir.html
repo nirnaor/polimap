@@ -1,0 +1,116 @@
+<polymer-element name="polymer-person" attributes="blat">
+  <template>
+  <h1>{{blat}}</h1>
+    <span id="title">web developer</span>
+  </template>
+    <script>
+      Polymer({
+        message: "Hello!",
+        blat: "pipi",
+        get greeting() {
+          return this.message + ' there!';
+        },
+        foo: function() {alert("NIR")},
+        chnage_title: function(new_title){ 
+          this.$.title.innerHTML = new_title
+          return new_title
+        }
+      });
+    </script>
+</polymer-element>
+
+
+<polymer-element name="polymer-soldier" extends="polymer-person">
+  <template>
+     <shadow>
+      <a> i am in the shadow</a>
+     </shadow>
+ </template>
+ <script>
+    Polymer();
+  </script>
+</polymer-element>
+
+
+
+<polymer-person blat="kaki"></polymer-person >
+<polymer-soldier blat="soldier"></polymer-soldier >
+
+
+<polymer-element name="polymer-parties" attributes="parties">
+  <template>
+    <style>
+      paper-toast div{
+        color: blue;
+        background: red;
+        margin-right: 7px;
+      }
+    </style>
+    <ul id="parties_list">
+    </ul>
+    <paper-toast id="toast" >
+      <div  on-tap="{{open_single_party_window}}">מה זה?</div>
+    </paper-toast>
+    <paper-dialog  >
+      <p>Some content</p>
+    </paper-dialog>
+
+
+
+    <paper-action-dialog heading="מפה מפלגתית" backdrop=""
+    id="single_party_dialog" autoclosedisabled="" layered="false" 
+    role="dialog" layout="" vertical="" tabindex="-1" 
+    style="position: fixed; outline: none; z-index: 12; top: 166.5px; left: 0px;">
+          <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+
+          <paper-button affirmative="" autofocus="" role="button" tabindex="0">
+          הבנתי
+          </paper-button>
+    </paper-action-dialog>
+
+
+  </template>
+  <script>
+    var self = this;
+    Polymer({
+      parties: [],
+      ready: function(){ 
+        var self = this;
+        self.$.parties_list.innerHTML = "";
+        self.$.toast.opened = true;
+        self.$.toast.duration = 60 * 1000
+        this.parties.forEach(function(party){
+          li = document.createElement("li");
+          li.innerHTML = party;
+          li.setAttribute("data-party", party)
+          li.addEventListener("click", function(){ 
+            self.show_toast_for(this.dataset.party)
+          });
+          self.$.parties_list.appendChild(li);
+        });
+      },
+      show_toast_for: function(party){
+        toast = this.$.toast;
+        toast.text = "אתה צופה במפה של מפלגת " + party;
+        toast.toggle()
+        console.log(party)
+      },
+      open_single_party_window: function(){
+        console.log("this is retry");
+        this.$.single_party_dialog.toggle();
+      },
+      partiesChanged: function(){
+        this.ready();
+      },
+    });
+  </script>
+<polymer-element>
+
+
+<script>
+  parties = document.createElement("polymer-parties");
+  parties.parties = ["gil" ]
+  document.body.appendChild(parties);
+</script>

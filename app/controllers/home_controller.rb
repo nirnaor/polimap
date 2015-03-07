@@ -5,6 +5,9 @@ class HomeController < ApplicationController
     gon.parties = Party.all.as_json
   end
 
+  def nir
+  end
+
 
   def members_json
     unless Rails.cache.exist? :members
