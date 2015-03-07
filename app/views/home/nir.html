@@ -1,15 +1,52 @@
-<polymer-element name="polymer-single-party-explanation" noscript>
+<paper-action-dialog id="party-map-explanation" backdrop="" autoclosedisabled="" layered="false" role="dialog" layout="" vertical="" tabindex="-1" style="position: fixed; outline: none; z-index: 12; top: 166.5px; left: 0px;">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+            <paper-button affirmative="" autofocus="" role="button" tabindex="0">Tap me to close</paper-button>
+                </paper-action-dialog>
+
+
+<polymer-element name="polymer-party-picker">
   <template>
-    <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    </p>
+  <paper-action-dialog id="dialog" backdrop="" autoclosedisabled="" layered="false" role="dialog" layout="" vertical="" tabindex="-1" style="position: fixed; outline: none; z-index: 12; top: 166.5px; left: 0px;">
+    bla
+    <paper-radio-group id="bla" role="radiogroup">
+    </paper-radio-group>
+  </paper-action-dialog>
+
+
   </template>
 
+  <script>
+    Polymer({
+      parties: ["nir", "gil", "omer"],
+      ready: function(){
+        var self = this;
+        this.parties.forEach(function(party){
+          party_radio = document.createElement("paper-radio-button");
+          party_radio.name = party;
+          party_radio.label = party;
+          self.$.bla.appendChild(party_radio);
+        });
+
+        this.$.dialog.toggle();
+      }
+    });
+  </script>
+
 </polymer-element>
-<polymer-single-party-explanation></polymer-single-party-explanation>
+
+
+
 
 <polymer-element name="polymer-parties" attributes="parties">
   <template>
+    <paper-button id="show-right-left-map" raised>
+      הצג מפת ימין שמאל
+    </paper-button>
+    <paper-button id="show_party_map" on-click="{{show_party_map}}" raised>
+    הצג מפה מפלגתית
+    </paper-button>
+
     <style>
       paper-toast div{
         color: blue;
@@ -28,22 +65,16 @@
 
 
 
-    <paper-action-dialog heading="מפה מפלגתית" backdrop=""
-    id="single_party_dialog" autoclosedisabled="" layered="false" 
-    role="dialog" layout="" vertical="" tabindex="-1" 
-    style="position: fixed; outline: none; z-index: 12; top: 166.5px; left: 0px;">
-
-          <paper-button affirmative="" autofocus="" role="button" tabindex="0">
-          הבנתי
-          </paper-button>
-    </paper-action-dialog>
-
 
   </template>
   <script>
     var self = this;
     Polymer({
       parties: [],
+      show_party_map: function(){
+        bla = document.createElement("polymer-party-picker");
+        document.body.appendChild(bla);
+      },
       ready: function(){ 
         var self = this;
         self.$.parties_list.innerHTML = "";
@@ -65,12 +96,15 @@
         toast.toggle()
         console.log(party)
       },
+      show_dialog: function(element){
+        this.$.dialog.innerHTML = ""
+        this.$.dialog.appendChild(element);
+        this.$.dialog.toggle();
+      },
       open_single_party_window: function(){
         console.log("this is retry");
-        explanation = document.createElement(
-            "polymer-single-party-explanation");
-        this.$.single_party_dialog.appendChild(explanation);
-        this.$.single_party_dialog.toggle();
+        explanation = document.getElementById("party-map-explanation");
+        explanation.toggle();
       },
       partiesChanged: function(){
         this.ready();
