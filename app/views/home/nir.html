@@ -1,3 +1,13 @@
+<polymer-element name="polymer-single-party-explanation" noscript>
+  <template>
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+  </template>
+
+</polymer-element>
+<polymer-single-party-explanation></polymer-single-party-explanation>
+
 <polymer-element name="polymer-parties" attributes="parties">
   <template>
     <style>
@@ -22,9 +32,6 @@
     id="single_party_dialog" autoclosedisabled="" layered="false" 
     role="dialog" layout="" vertical="" tabindex="-1" 
     style="position: fixed; outline: none; z-index: 12; top: 166.5px; left: 0px;">
-          <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
 
           <paper-button affirmative="" autofocus="" role="button" tabindex="0">
           הבנתי
@@ -60,6 +67,9 @@
       },
       open_single_party_window: function(){
         console.log("this is retry");
+        explanation = document.createElement(
+            "polymer-single-party-explanation");
+        this.$.single_party_dialog.appendChild(explanation);
         this.$.single_party_dialog.toggle();
       },
       partiesChanged: function(){
