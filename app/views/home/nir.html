@@ -1,3 +1,6 @@
+
+
+
 <paper-action-dialog id="party-map-explanation" backdrop="" autoclosedisabled="" layered="false" role="dialog" layout="" vertical="" tabindex="-1" style="position: fixed; outline: none; z-index: 12; top: 166.5px; left: 0px;">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
@@ -5,12 +8,19 @@
                 </paper-action-dialog>
 
 
-<polymer-element name="polymer-party-picker">
+<polymer-element name="polymer-party-picker" >
   <template>
+
   <paper-action-dialog id="dialog" backdrop="" autoclosedisabled="" layered="false" role="dialog" layout="" vertical="" tabindex="-1" style="position: fixed; outline: none; z-index: 12; top: 166.5px; left: 0px;">
     bla
+
     <paper-radio-group id="bla" role="radiogroup">
     </paper-radio-group>
+    <paper-fab id="check" transition="core-transition-bottom" icon="check"></paper-fab>
+    <paper-button affirmative="" autofocus="" role="button" tabindex="0">Tap me to close</paper-button>
+
+
+        </paper-action-dialog>
   </paper-action-dialog>
 
 
@@ -18,17 +28,23 @@
 
   <script>
     Polymer({
-      parties: ["nir", "gil", "omer"],
+      parties: [],
       ready: function(){
         var self = this;
+        console.log(this.parties);
         this.parties.forEach(function(party){
           party_radio = document.createElement("paper-radio-button");
           party_radio.name = party;
           party_radio.label = party;
           self.$.bla.appendChild(party_radio);
         });
-
+      },
+      attached: function(){
         this.$.dialog.toggle();
+      },
+      partiesChanged: function(){
+        console.log("nir");
+        this.ready()
       }
     });
   </script>
@@ -73,6 +89,7 @@
       parties: [],
       show_party_map: function(){
         bla = document.createElement("polymer-party-picker");
+        bla.parties = this.parties;
         document.body.appendChild(bla);
       },
       ready: function(){ 
@@ -116,6 +133,6 @@
 
 <script>
   parties = document.createElement("polymer-parties");
-  parties.parties = ["gil" ]
+  parties.parties = ["gil", "nir", "omer", "udi", "anat" ]
   document.body.appendChild(parties);
 </script>
