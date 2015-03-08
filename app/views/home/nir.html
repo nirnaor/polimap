@@ -10,13 +10,19 @@
 
 <polymer-element name="polymer-party-picker" >
   <template>
+  <style>
+    paper-radio-button{
+      color: blue;
+        display: block;
+    }
+  </style>
 
   <paper-action-dialog id="dialog" backdrop="" autoclosedisabled="" layered="false" role="dialog" layout="" vertical="" tabindex="-1" style="position: fixed; outline: none; z-index: 12; top: 166.5px; left: 0px;">
     bla
 
     <paper-radio-group id="bla" role="radiogroup">
     </paper-radio-group>
-    <paper-fab id="check" transition="core-transition-bottom" icon="check"></paper-fab>
+    <paper-fab id="check" hidden="true" transition="core-transition-bottom" icon="check"></paper-fab>
     <paper-button affirmative="" autofocus="" role="button" tabindex="0">Tap me to close</paper-button>
 
 
@@ -34,6 +40,9 @@
         console.log(this.parties);
         this.parties.forEach(function(party){
           party_radio = document.createElement("paper-radio-button");
+          ref = self.gil.bind(self)
+          party_radio.addEventListener("change", ref);
+          party_radio.setAttribute("on-change", "gil")  
           party_radio.name = party;
           party_radio.label = party;
           self.$.bla.appendChild(party_radio);
@@ -41,6 +50,11 @@
       },
       attached: function(){
         this.$.dialog.toggle();
+        console.log("attached");
+      },
+      gil: function(){
+        this.$.check.hidden = false;
+        console.log("changed");
       },
       partiesChanged: function(){
         console.log("nir");
