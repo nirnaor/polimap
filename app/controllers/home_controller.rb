@@ -1,8 +1,6 @@
 class HomeController < ApplicationController
   def index
-    gon.members = members_json
     gon.cities = cities_json
-    gon.parties = Party.all.as_json
   end
 
   def nir
