@@ -121,6 +121,25 @@ $ ->
 
 
 
+  add_polimap = ->
+    parties = document.createElement('poli-map')
+
+    parties.addEventListener 'party-selected', (ev) ->
+      console.log 'will change the map to ' + ev.detail.party
+    parties.addEventListener 'show_right_left_map', (ev) ->
+      console.log 'will show right left map'
+
+    parties.parties = defaults
+    # parties.parties = [
+    #   'gil'
+    #   'nir'
+    #   'omer'
+    #   'udi'
+    #   'anat'
+    # ]
+    $(".parties").prepend parties
+
   $(document).on "map_loaded", ->
     $(".parties input").eq(4).attr("checked","true")
     build_rational_cities_heat_map()
+    add_polimap()
