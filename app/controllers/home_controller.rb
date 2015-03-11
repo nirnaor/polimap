@@ -7,6 +7,8 @@ class HomeController < ApplicationController
 
   def nir
   end
+  def polymer_test
+  end
 
 
   def members_json

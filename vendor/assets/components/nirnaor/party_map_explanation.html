@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <!-- <link rel="import" --> 
+  <!-- href="../paper-dialog/paper-action-dialog.html"> -->
+  <!--   <link rel="import" --> 
+  <!--   href="../paper-button/paper-button.html"> -->
+  <!--     </head> -->
+  <body>
+    <polymer-element name="polymer-gil" extends="paper-action-dialog">
+      <script>
+        Polymer();
+      </script>
+    </polymer-element>
+
+<polymer-element name="party-map-explanation" >
+     <template>
+                <paper-action-dialog id="dialog" backdrop=""
+                autoclosedisabled="" layered="false" role="dialog" layout=""
+                vertical="" tabindex="-1" style="position: fixed; outline:
+                none; z-index: 12; top: 166.5px; left: 0px;">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  הלוואי שיהיה פה עברית
+                  sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad
+                  minim veniam, quis nostrud exercitation ullamco laboris nisi
+                  ut aliquip
+                  ex ea commodo consequat.</p>
+
+                  <paper-button affirmative="" autofocus="" role="button"
+                  tabindex="0">
+                    Tap me to close
+                  </paper-button>
+                </paper-action-dialog>
+
+    </template>
+    <script>
+      Polymer({
+        toggle: function(){
+          console.log("toggling");
+          this.$.dialog.toggle();
+        }
+      });
+    </script>
+</polymer-element>
+
+<polymer-element name="right-to-left-explanation" >
+     <template>
+                <paper-action-dialog id="dialog" backdrop=""
+                autoclosedisabled="" layered="false" role="dialog" layout=""
+                vertical="" tabindex="-1" style="position: fixed; outline:
+                none; z-index: 12; top: 166.5px; left: 0px;">
+
+                <h1>
+                  right to left map
+                </h1>
+                  <paper-button affirmative="" autofocus="" role="button"
+                  tabindex="0">
+                    Tap me to close
+                  </paper-button>
+                </paper-action-dialog>
+
+    </template>
+    <script>
+      Polymer({
+        toggle: function(){
+          console.log("toggling");
+          this.$.dialog.toggle();
+        }
+      });
+    </script>
+</polymer-element>
+
+<right-to-left-explanation>
+</right-to-left-explanation>
+
+
+    <script>
+        <!-- fn = function(){ -->
+        <!--   explanation = document.querySelector("right-to-left-explanation"); -->
+        <!--   document.body.appendChild(explanation); -->
+        <!--   explanation.toggle(); -->
+        <!-- }; -->
+        <!-- document.addEventListener('DOMContentLoaded', fn); -->
+    </script>
+  </body>
+</html>

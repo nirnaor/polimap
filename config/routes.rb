@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get 'home/index'
   get 'nir' => "home#nir"
+  get 'polymer_test' => "home#polymer_test"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

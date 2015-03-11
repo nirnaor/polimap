@@ -1,0 +1,14 @@
+<h1>
+ this is gil
+</h1>
+<script>
+  parties = document.createElement("poli-map");
+  parties.addEventListener("party-selected", function(ev){
+    console.log("will change the map to " + ev.detail.party);
+  });
+  parties.addEventListener("show_right_left_map", function(ev){
+    console.log("will show right left map");
+  });
+  parties.parties = ["gil", "nir", "omer", "udi", "anat" ]
+  document.body.appendChild(parties);
+</script>

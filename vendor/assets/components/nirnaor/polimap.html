@@ -1,0 +1,124 @@
+  <head>
+    <!-- <link rel="import" href="party_map_explanation.html"> -->
+    <!-- <link rel="import" href="party_picker.html"> -->
+  <!-- <link rel="import" --> 
+  <!-- href="../paper-toast/paper-toast.html"> -->
+  <!-- <link rel="import" --> 
+  <!-- href="../paper-dialog/paper-action-dialog.html"> -->
+  <!-- <link rel="import" --> 
+  <!-- href="../paper-button/paper-button.html"> -->
+
+
+
+
+  <!-- <link rel="import" --> 
+  <!-- href="../paper-dialog/paper-action-dialog.html"> -->
+    <!-- <link rel="import" --> 
+    <!-- href="../paper-button/paper-button.html"> -->
+
+
+
+<polymer-element name="poli-map" attributes="parties">
+  <template>
+
+    <right-to-left-explanation id="right_to_left">
+    </right-to-left-explanation>
+
+    <party-map-explanation  id="party_map_explanation">
+    </party-map-explanation>
+
+    <polymer-party-picker id="party_picker" hide_picker="true">
+    </polymer-party-picker>
+
+    <paper-button id="show-right-left-map"
+                  on-tap="{{on_show_right_to_left_map_clicked}}"
+    raised>
+      הצג מפת ימין שמאל
+    </paper-button>
+
+    <paper-button id="show_party_map" on-click="{{on_show_party_map_clicked}}"
+      raised>
+    nir naor
+    ניר נאור
+    </paper-button>
+
+    <style>
+      paper-toast div{
+        color: blue;
+        background: red;
+        margin-right: 7px;
+      }
+    </style>
+    <paper-toast  id="toast" attributes="dialog_to_open">
+      <div   on-tap="{{open_dialog}}">מה זה?</div>
+    </paper-toast>
+
+
+
+
+  </template>
+  <script>
+    var self = this;
+    Polymer({
+      parties: [],
+      on_show_party_map_clicked: function(){
+        this.$.toast.setAttribute("dialog_to_open", "party_map_explanation");
+        bla = this.$.party_picker;
+        bla.parties = this.parties;
+        var self = this;
+        bla.addEventListener("party-selected", function(ev){
+          console.log(ev);
+          party = ev.detail.party
+          self.show_party_toast(party);
+          self.fire("party-selected", {party: party});
+        });
+        document.body.appendChild(bla);
+        bla.show();
+      },
+      open_dialog: function(){
+        dialog_id = this.$.toast.getAttribute("dialog_to_open");
+        relevant_dialog = this.$[dialog_id];
+        relevant_dialog.toggle();
+        console.log("open_dialog");
+      },
+      on_show_right_to_left_map_clicked: function(ev){
+        this.fire("show_right_left_map");
+        this.show_right_to_left_toast();
+      },
+      ready: function(){ 
+        var self = this;
+        self.$.toast.opened = true;
+        self.$.toast.duration = 60 * 1000
+      },
+      show_party_toast: function(party){
+        toast = this.$.toast;
+        toast.text = "אתה צופה במפה של מפלגת " + party;
+        toast.toggle()
+      },
+      show_right_to_left_toast: function(party){
+        toast = this.$.toast;
+        toast.setAttribute("dialog_to_open", "right_to_left");
+        toast.text = "אתה צופה במפה של מפלגת " + party;
+        toast.toggle()
+      },
+      show_dialog: function(element){
+        this.$.dialog.innerHTML = ""
+        this.$.dialog.appendChild(element);
+        this.$.dialog.toggle();
+      }
+    });
+  </script>
+<polymer-element>
+
+
+<!-- <script> -->
+<!--   parties = document.createElement("poli-map"); -->
+<!--   parties.addEventListener("party-selected", function(ev){ -->
+<!--     console.log("will change the map to " + ev.detail.party); -->
+<!--   }); -->
+<!--   parties.addEventListener("show_right_left_map", function(ev){ -->
+<!--     console.log("will show right left map"); -->
+<!--   }); -->
+<!--   parties.parties = ["gil", "nir", "omer", "udi", "anat" ] -->
+<!--   document.body.appendChild(parties); -->
+<!-- </script> -->
