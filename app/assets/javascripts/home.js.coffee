@@ -144,6 +144,11 @@ $ ->
     $(".parties").prepend parties
 
   $(document).on "map_loaded", ->
+
+    parties_div = document.createElement("div")
+    parties_div.classList.add "parties"
+    document.querySelector("body").appendChild parties_div
+
     $(".parties input").eq(4).attr("checked","true")
     build_rational_cities_heat_map()
     add_polimap()
