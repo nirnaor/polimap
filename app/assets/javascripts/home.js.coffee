@@ -81,6 +81,12 @@ $ ->
       weight += city_ratios[party] * (i+1)
     weight
 
+  set_data = (data)->
+    party_heatmap.setMap(map)
+    party_heatmap.setData([])
+    party_heatmap.set('gradient',  gradient)
+    party_heatmap.setData(data)
+
   build_rational_cities_heat_map = (party) ->
     cities = JSON.parse(gon.cities)
     heatMapData = []
@@ -114,10 +120,8 @@ $ ->
       markers.forEach (marker)-> marker.setVisible(visible)
     )
 
-    party_heatmap.setMap(map)
-    party_heatmap.setData([])
-    party_heatmap.set('gradient',  gradient)
-    party_heatmap.setData(heatMapData)
+
+    set_data heatMapData
 
 
 
