@@ -125,6 +125,10 @@ $ ->
     parties = document.createElement('poli-map')
 
     parties.addEventListener 'party-selected', (ev) ->
+      p = ev.detail.party
+      party_heatmap.setMap(map)
+      party_heatmap.setData([])
+      party_heatmap.setData(parties_map[p])
       console.log 'will change the map to ' + ev.detail.party
     parties.addEventListener 'show_right_left_map', (ev) ->
       console.log 'will show right left map'

@@ -3,6 +3,8 @@ parties_legend = ->
 
   parties_div = document.createElement("div")
   parties_div.classList.add "parties"
+  document.querySelector("body").appendChild parties_div
+  return
   all_parties = gon.parties
   all_parties.forEach (party)->
     return unless party.name in pnames
@@ -28,9 +30,7 @@ parties_legend = ->
       party_heatmap.setMap(map)
       party_heatmap.setData([])
       party_heatmap.setData(parties_map[p])
-    parties_div.appendChild party_div
 
-  document.querySelector("body").appendChild parties_div
 
 $(document).on "map_loaded", ->
   parties_legend()
