@@ -22,17 +22,18 @@ class HomeController < ApplicationController
 
   def cities_json
     unless Rails.cache.exist? :cities
-      res = []
-      City.all.each do |city|
-        city_json = city.as_json
-        votes = []
-        city.votes.each do |city_vote|
-          votes << city_vote.as_json(:include => :party)
-        end
-        city_json = city_json.merge(:votes => votes)
-        res << city_json
-      end
-      res.to_json
+      from_file = File.read("cities.json")
+      # res = []
+      # City.all.each do |city|
+      #   city_json = city.as_json
+      #   votes = []
+      #   city.votes.each do |city_vote|
+      #     votes << city_vote.as_json(:include => :party)
+      #   end
+      #   city_json = city_json.merge(:votes => votes)
+      #   res << city_json
+      # end
+      # res.to_json
       Rails.cache.write(:cities,res.to_json)
     end
     Rails.cache.read :cities
