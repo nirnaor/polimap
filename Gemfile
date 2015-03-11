@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+ruby "2.2.0"
+
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -52,3 +54,7 @@ gem 'will_paginate', '~> 3.0.6'
 gem 'rainbowvis_rails'
 gem 'underscore-rails'
 gem 'emcee'
+
+gem 'rails_12factor', group: :production
+gem 'puma'
+
