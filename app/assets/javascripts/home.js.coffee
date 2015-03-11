@@ -89,7 +89,7 @@ $ ->
 
   build_rational_cities_heat_map = (party) ->
     cities = JSON.parse(gon.cities)
-    heatMapData = []
+    window.heatMapData = []
 
 
     window.weights = {}
@@ -130,11 +130,12 @@ $ ->
 
     parties.addEventListener 'party-selected', (ev) ->
       p = ev.detail.party
-      party_heatmap.setMap(map)
-      party_heatmap.setData([])
-      party_heatmap.setData(parties_map[p])
+      party_data = parties_map[p]
+      set_data party_data
       console.log 'will change the map to ' + ev.detail.party
+
     parties.addEventListener 'show_right_left_map', (ev) ->
+      set_data window.heatMapData
       console.log 'will show right left map'
 
     parties.parties = defaults
