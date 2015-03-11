@@ -34,7 +34,7 @@ class HomeController < ApplicationController
       #   res << city_json
       # end
       # res.to_json
-      Rails.cache.write(:cities,res.to_json)
+      Rails.cache.write(:cities,from_file)
     end
     Rails.cache.read :cities
   end
