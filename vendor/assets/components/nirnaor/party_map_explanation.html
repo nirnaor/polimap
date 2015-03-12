@@ -15,23 +15,58 @@
 
 <polymer-element name="party-map-explanation" >
      <template>
+     <style>
+      paper-action-dialog{
+        height: 700px;
+        width: 700px;
+      }
+      core-toolbar{
+        background: rgb(84, 153 , 226);
+      }
+     </style>
                 <paper-action-dialog id="dialog" backdrop=""
                 autoclosedisabled="" layered="false" role="dialog" layout=""
                 vertical="" tabindex="-1" style="position: fixed; outline:
                 none; z-index: 12; top: 166.5px; left: 0px;">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  הלוואי שיהיה פה עברית
-                  sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad
-                  minim veniam, quis nostrud exercitation ullamco laboris nisi
-                  ut aliquip
-                  ex ea commodo consequat.</p>
 
-                  <paper-button affirmative="" autofocus="" role="button"
-                  tabindex="0">
-                    Tap me to close
-                  </paper-button>
+
+
+
+                    <core-toolbar class="core-header">
+                    <div>מפה מפלגתית</div>
+                    </core-toolbar>
+                    <div class="explanation">
+
+
+
+                      מפה מפלגתית היא מפת חום אשר מציגה נתונים של מפלגה אחת בלבד. אם מפלגה מסויימת מצליחה באיזור מסוים, האיזור יהיה כהה יותר.
+
+                      <h3>
+                      איך זה קורה?
+                      </h3>
+                      לכל עיר מחושב משקל ועל ידי הצגת כל המשקלים יחדיו המפה מקבלת את הגוון שלה. ככל שהמשקל של עיר יהיה גבוה יותר, האיזור של העיר יהיה כהה יותר
+
+
+                      <h3>
+                      איך נעשה החישוב?
+                      </h3>
+                      לכל מפלגה יש משקל בכל עיר. אם המפלגה זכתה במקום הראשון בעיר היא תקבל משקל 11 (כמספר המפלגות שעברו את אחוז החסימה). אם המפלגה זכתה במקום האחרון בעיר היא תקבל משקל 0.
+
+                      <h3>
+                      דוגמה 
+                      </h3>
+
+                    </div>
+
+
+                    <paper-button affirmative="" autofocus="" role="button"
+                    tabindex="0">
+                      הבנתי
+                    </paper-button>
+
+
+
+
                 </paper-action-dialog>
 
     </template>
