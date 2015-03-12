@@ -30,4 +30,5 @@ window.update_parties_map = (ratios, city, coordinate)->
     parties_map[party_name].push({location: coordinate, weight: party_grade})
 
 
-
+window.sum_array = (array)->
+  array.reduce((prev,current)-> prev + current )

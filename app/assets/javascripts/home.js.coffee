@@ -66,7 +66,7 @@ $ ->
 
   get_city_ratios = (city) ->
     relevant_votes = city.votes.map((vote)-> if vote.party in defaults then vote.amount else 0)
-    total_votes_in_city = relevant_votes.reduce((prev,current)-> prev + current )
+    total_votes_in_city = sum_array(relevant_votes)
     # console.log("#{city.name}: #{total_votes_in_city}")
 
     city_ratios = {}
