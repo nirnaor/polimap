@@ -138,6 +138,11 @@ $ ->
       set_data window.heatMapData
       console.log 'will show right left map'
 
+    parties.addEventListener "zoom_in", (ev) ->
+      map.setZoom(12)
+    parties.addEventListener "zoom_out", (ev) ->
+      map.setZoom(9)
+
     parties.parties = defaults
     # parties.parties = [
     #   'gil'

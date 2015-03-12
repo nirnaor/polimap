@@ -40,6 +40,10 @@
       raised>
     הצג מפה מפלגתית
     </paper-button>
+    <paper-button on-tap="{{on_go_deeper_clicked}}" id="go_deeper"
+     toggle="" raised="" class="colored" role="button"
+   
+    tabindex="0">כנס פנימה</paper-button>
 
     <style>
       paper-toast div{
@@ -83,6 +87,21 @@
       on_show_right_to_left_map_clicked: function(ev){
         this.fire("show_right_left_map");
         this.show_right_to_left_toast();
+      },
+      on_go_deeper_clicked: function(ev){
+        var original = "כנס פנימה";
+        var event_name = "";
+        if (this.$.go_deeper.textContent === original) {
+          text = "לך אחורה";
+          event_name = "zoom_in"
+        }
+        else{
+          event_name = "zoom_out"
+          text = original;
+        }
+        this.$.go_deeper.textContent = text;
+        console.log(ev);
+        this.fire(event_name);
       },
       ready: function(){ 
         var self = this;
