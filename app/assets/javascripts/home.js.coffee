@@ -73,7 +73,7 @@ $ ->
     for vote in city.votes
       if vote.party in defaults
         city_ratios[vote.party] = vote.amount / total_votes_in_city
-    city_ratios
+    { ratios: city_ratios, total_votes: total_votes_in_city }
 
   get_city_weight = (city_ratios)->
     weight = 0
@@ -96,7 +96,7 @@ $ ->
     for city in cities
       coordinate = new google.maps.LatLng(city.lat, city.lng)
 
-      city_ratios = get_city_ratios city
+      city_ratios = get_city_ratios(city)["ratios"]
       
       # City weight
       weight = get_city_weight(city_ratios)
