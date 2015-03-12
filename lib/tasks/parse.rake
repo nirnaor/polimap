@@ -8,23 +8,45 @@ namespace :parse do
     # parse_member("http://www.knesset.gov.il/mk/heb/mk.asp?mk_individual_id_t=857")
   end
 
+  relevant_parties = [
+    'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה',
+    "הליכוד – תנועה לאומית ליברלית",
+    "יהדות התורה",
+    'התאחדות הספרדים שומרי תורה – תנועת ש”ס',
+    "קדימה",
+    "יש עתיד",
+    "התנועה בראשות ציפי לבני",
+    "מפלגת העבודה הישראלית",
+    "מרצ",
+    "בלד",
+    "חדש"
+  ]
+
   task file: :environment do
     cities = Rails.cache.read :cities
     cities_hash = JSON.parse(cities)
+    
 
     res = []
     cities_hash.each do |city|
       city_json = {:name =>  city["name"], :lat => city["lat"],
                    :lng => city["lng"] }
       votes = []
-      city["votes"].each do |city_vote|
+
+      relevant_votes = city["votes"].select{|v|
+        relevant_parties.include?  v["party"]["name"] 
+      }
+      
+
+
+      relevant_votes.each do |city_vote|
         votes << { :amount => city_vote["amount"],
                    :party => city_vote["party"]["name"] }
       end
       city_json[:votes] = votes
       res << city_json
     end
-    File.write("optimized_cities.json", res.to_json)
+    File.write("optimized_cities_only_big_parties.json", res.to_json)
   end
 
   task votes: :environment do

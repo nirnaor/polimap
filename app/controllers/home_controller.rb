@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    file = File.read("optimized_cities.json")
+    file = File.read("optimized_cities_only_big_parties.json")
     gon.cities = file
   end
 
