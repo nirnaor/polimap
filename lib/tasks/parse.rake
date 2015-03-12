@@ -8,6 +8,25 @@ namespace :parse do
     # parse_member("http://www.knesset.gov.il/mk/heb/mk.asp?mk_individual_id_t=857")
   end
 
+  task file: :environment do
+    cities = Rails.cache.read :cities
+    cities_hash = JSON.parse(cities)
+
+    res = []
+    cities_hash.each do |city|
+      city_json = {:name =>  city["name"], :lat => city["lat"],
+                   :lng => city["lng"] }
+      votes = []
+      city["votes"].each do |city_vote|
+        votes << { :amount => city_vote["amount"],
+                   :party => city_vote["party"]["name"] }
+      end
+      city_json[:votes] = votes
+      res << city_json
+    end
+    File.write("optimized_cities.json", res.to_json)
+  end
+
   task votes: :environment do
     require 'csv'
     filename = "#{Rails.root}/lib/tasks/expc_replaced2csvnocitycodes.csv"
