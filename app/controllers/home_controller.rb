@@ -22,10 +22,12 @@ class HomeController < ApplicationController
 
   def cities_json
     unless Rails.cache.exist? :cities
-      puts "reading from file system"
+      puts "NO KEY FOUNDREADING FROM FILE SYSTEM"
       file = File.read("optimized_cities_only_big_parties.json")
       Rails.cache.write(:cities,file)
       # Rails.cache.write(:cities,from_file)
+    else
+      puts "CITIES IS CACHED, WERE GOOD"
     end
     Rails.cache.read :cities
   end
