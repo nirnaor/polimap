@@ -66,17 +66,8 @@
       parties: [],
       on_show_party_map_clicked: function(){
         this.$.toast.setAttribute("dialog_to_open", "party_map_explanation");
-        bla = this.$.party_picker;
-        bla.parties = this.parties;
-        var self = this;
-        bla.addEventListener("party-selected", function(ev){
-          console.log(ev);
-          party = ev.detail.party
-          self.show_party_toast(party);
-          self.fire("party-selected", {party: party});
-        });
-        document.body.appendChild(bla);
-        bla.show();
+        this.$.toast.dismiss();
+        this.$.party_picker.show();
       },
       open_dialog: function(){
         dialog_id = this.$.toast.getAttribute("dialog_to_open");
@@ -106,17 +97,29 @@
       ready: function(){ 
         var self = this;
         self.$.toast.duration = 60 * 1000
+
+        bla = this.$.party_picker;
+        bla.parties = this.parties;
+        var self = this;
+        bla.addEventListener("party-selected", function(ev){
+          console.log(ev);
+          party = ev.detail.party
+          self.show_party_toast(party);
+          self.fire("party-selected", {party: party});
+        });
+        document.body.appendChild(bla);
       },
       show_party_toast: function(party){
         toast = this.$.toast;
         toast.text = "אתה צופה במפה של מפלגת " + party;
-        toast.toggle()
+        toast.show()
       },
       show_right_to_left_toast: function(party){
         toast = this.$.toast;
         toast.setAttribute("dialog_to_open", "right_to_left");
         toast.text = "אתה צופה במפת שמאל ימין"
-        toast.toggle()
+        toast.dismiss();
+        toast.show();
       },
       show_dialog: function(element){
         this.$.dialog.innerHTML = ""
