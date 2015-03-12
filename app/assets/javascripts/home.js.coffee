@@ -73,13 +73,20 @@ $ ->
     for vote in city.votes
       if vote.party in defaults
         city_ratios[vote.party] = vote.amount / total_votes_in_city
-    { ratios: city_ratios, total_votes: total_votes_in_city }
+    { ratios: city_ratios, total_votes_in_city: total_votes_in_city }
 
-  get_city_weight = (city_ratios)->
+  get_city_weight = (city_ratios, total_voters_in_country)->
+    actual_city_ratios = city_ratios["ratios"]
     weight = 0
     for party, i in defaults
-      weight += city_ratios[party] * (i+1)
+      party_multiplier = party_multipliers[party]
+      weight += actual_city_ratios[party] * party_multiplier
+
+    city_population_ratio =
+      city_ratios["total_votes_in_city"] / total_voters_in_country
+    # weight * city_population_ratio
     weight
+
 
   set_data = (data)->
     party_heatmap.setMap(map)
@@ -91,28 +98,35 @@ $ ->
     cities = JSON.parse(gon.cities)
     window.heatMapData = []
 
+    total_voters_in_country = calculate_total_voters_in_country(cities)
+
 
     window.weights = {}
     for city in cities
       coordinate = new google.maps.LatLng(city.lat, city.lng)
 
-      city_ratios = get_city_ratios(city)["ratios"]
+      city_ratios = get_city_ratios(city)
       
       # City weight
-      weight = get_city_weight(city_ratios)
-      add_marker(city_ratios, coordinate, city, weight)
+      weight = get_city_weight(city_ratios, total_voters_in_country)
+      console.log("#{city.name}: #{weight}")
+      add_marker(city_ratios["ratios"], coordinate, city, weight)
 
       # console.log("#{city.name}: #{weight}")
       heatMapData.push({location: coordinate, weight: weight})
 
-    meters = 12 * 1000
+    meters = 6 * 1000
+    big_zomm_meters = 160 * 1000
     projection = new MercatorProjection()
     window.party_heatmap = new  google.maps.visualization.HeatmapLayer(
       radius: projection.getNewRadius(map,meters)
     )
     google.maps.event.addListener(map, 'zoom_changed', () ->
-      new_radius = projection.getNewRadius(map,meters)
+      relevant_meters = meters
       zoom_level = map.getZoom()
+      if zoom_level > 13
+        relevant_meters = big_zomm_meters
+      new_radius = projection.getNewRadius(map,meters)
       console.log "zoom changed to #{zoom_level}- changing to radius: #{new_radius}"
       party_heatmap.setOptions(radius: new_radius)
 
