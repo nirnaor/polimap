@@ -105,7 +105,6 @@
       },
       ready: function(){ 
         var self = this;
-        self.$.toast.opened = true;
         self.$.toast.duration = 60 * 1000
       },
       show_party_toast: function(party){
@@ -116,7 +115,7 @@
       show_right_to_left_toast: function(party){
         toast = this.$.toast;
         toast.setAttribute("dialog_to_open", "right_to_left");
-        toast.text = "אתה צופה במפה של מפלגת " + party;
+        toast.text = "אתה צופה במפת שמאל ימין"
         toast.toggle()
       },
       show_dialog: function(element){
