@@ -27,7 +27,7 @@
     <party-map-explanation  id="party_map_explanation">
     </party-map-explanation>
 
-    <polymer-party-picker id="party_picker" hide_picker="true">
+    <polymer-party-picker id="party_picker" >
     </polymer-party-picker>
 
     <paper-button id="show-right-left-map"
@@ -107,7 +107,6 @@
           self.show_party_toast(party);
           self.fire("party-selected", {party: party});
         });
-        document.body.appendChild(bla);
       },
       show_party_toast: function(party){
         toast = this.$.toast;
