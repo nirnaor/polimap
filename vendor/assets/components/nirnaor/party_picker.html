@@ -12,7 +12,7 @@
   </head>
 
   <body>
-<polymer-element name="polymer-party-picker" attributes="hide_picker">
+<polymer-element name="polymer-party-picker" >
   <template>
   <style>
     paper-radio-button{
@@ -60,9 +60,6 @@
         });
       },
       attached: function(){
-        if (this.hide_picker === "false"){
-          this.$.dialog.toggle();
-        }
         console.log("attached");
       },
       show_check: function(){
