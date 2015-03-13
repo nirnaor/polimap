@@ -7,13 +7,14 @@
   <%= html_import_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 
-  <meta property="og:image", content="/assets/facebook_image.png"/>
+  <meta property="og:image", content="<%=absolute_image_helper%>"/>
   <meta property="og:url", content="<%=root_url%>"/>
   <meta property="og:title", content="מפה פוליטית של ישראל"/>
 </head>
 <body>
 
 <%= yield %>
+  <%= image_tag(absolute_image_helper) %>
 
 </body>
 </html>
