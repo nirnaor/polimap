@@ -15,15 +15,11 @@
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
-.fb-like{"class": "fb-like", "data-share": "true", "data-width": 450, 
-  "data-show-faces": "true"}
-
-= image_tag("facebook_image.png")
+.social
+  .fb-share-button{"data-href" => "https://developers.facebook.com/docs/plugins/", "data-layout" => "button_count"}
+  .fb-like{"data-action" => "like", "data-href" => "https://developers.facebook.com/docs/plugins/", "data-layout" => "button_count", "data-share" => "false", "data-show-faces" => "true"}
    
 %h1 Listing cities
--# .polimap-links
--#   = facebook_button
--#   = twitter_button
 
 %table
   %thead
