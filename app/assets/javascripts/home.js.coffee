@@ -109,7 +109,7 @@ $ ->
       
       # City weight
       weight = get_city_weight(city_ratios, total_voters_in_country)
-      console.log("#{city.name}: #{weight}")
+      # console.log("#{city.name}: #{weight}")
       add_marker(city_ratios["ratios"], coordinate, city, weight)
 
       # console.log("#{city.name}: #{weight}")
@@ -166,6 +166,13 @@ $ ->
     #   'anat'
     # ]
     $(".parties").prepend parties
+    facebook_share = $('<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>')
+    facebook_like = $('<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>')
+    $(".parties").prepend parties
+    $(".parties").prepend facebook_share
+    $(".parties").prepend facebook_like
+    $("#twitter-widget-0").remove().appendTo(".parties")
+
 
   $(document).on "map_loaded", ->
 

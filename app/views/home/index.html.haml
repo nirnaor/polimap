@@ -20,6 +20,20 @@
       }
       google.maps.event.addDomListener(window, 'load', initialize);
   %body
+    %a.twitter-share-button{:href=>"https://twitter.com/share", :style => "display: none;"}
+    -#   Tweet
+    :javascript
+      window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+
+    #fb-root
+    :javascript
+      (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=760451830716871&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
     %paper-toast#toast2.core-transition.core-transition-bottom{:role => "alert", :style => "position: fixed; outline: none; z-index: 16; box-sizing: border-box; display: none;", :tabindex => "-1", :text => "Connection timed out. Showing limited messages.", "touch-action" => "none"}
       %div{:onclick => "console.log('RETRY')", :style => "color: #eeff41;"}  מה זה אומר?
     
