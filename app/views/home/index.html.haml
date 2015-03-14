@@ -34,8 +34,6 @@
       js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=760451830716871&version=v2.0";
       fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-    %paper-toast#toast2.core-transition.core-transition-bottom{:role => "alert", :style => "position: fixed; outline: none; z-index: 16; box-sizing: border-box; display: none;", :tabindex => "-1", :text => "Connection timed out. Showing limited messages.", "touch-action" => "none"}
       %div{:onclick => "console.log('RETRY')", :style => "color: #eeff41;"}  מה זה אומר?
     
-    %paper-toast.core-transition.core-transition-bottom{:id => :toast1, :role => "status", :style => "position: fixed; outline: none; display: none;", :tabindex => "-1", :text => "Your draft has been discarded.", "touch-action" => "none"}
     #map-canvas
