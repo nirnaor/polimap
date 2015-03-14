@@ -61,7 +61,7 @@ window.calculate_total_voters_in_country = (cities)->
 
 window.add_social = ->
     social = $("<div class='polimap-social'>")
-    url ="polimap.herokuapp.com"
+    url ="https://polimap.herokuapp.com"
     facebook_share = $("<div class='fb-share-button' data-href='#{url}' data-layout='button_count'></div>")
     facebook_like = $("<div class='fb-like' data-href='#{url}' data-layout='button_count' data-action='like' data-show-faces='true' data-share='true'></div>")
     social.prepend facebook_share
