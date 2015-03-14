@@ -107,6 +107,15 @@
         this.fire(event_name);
       },
       ready: function(){ 
+
+
+        if (typeof(document.documentMode) !== "undefined"){
+          this.$.toast.remove();
+        }
+
+
+
+
         var self = this;
         self.$.toast.duration = 60 * 1000
 
