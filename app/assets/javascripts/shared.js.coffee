@@ -60,9 +60,12 @@ window.calculate_total_voters_in_country = (cities)->
   result
 
 window.add_social = ->
+    social = $("<div class='polimap-social'>")
     facebook_share = $('<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>')
     facebook_like = $('<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>')
-    $(".parties").prepend facebook_share
-    $(".parties").prepend facebook_like
-    $("#twitter-widget-0").remove().appendTo(".parties")
+    social.prepend facebook_share
+    social.prepend facebook_like
+    $("#twitter-widget-0").remove().appendTo(social)
+
+    $(".parties").append social
 
