@@ -165,8 +165,8 @@ $ ->
     #   'udi'
     #   'anat'
     # ]
-    $(".parties").prepend parties
     add_social()
+    $(".parties").append parties
 
 
   $(document).on "map_loaded", ->
