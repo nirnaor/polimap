@@ -58,3 +58,11 @@ window.calculate_total_voters_in_country = (cities)->
   result = sum_array(sum_in_all_cities)
   console.log("Total voters: #{result}")
   result
+
+window.add_social = ->
+    facebook_share = $('<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>')
+    facebook_like = $('<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>')
+    $(".parties").prepend facebook_share
+    $(".parties").prepend facebook_like
+    $("#twitter-widget-0").remove().appendTo(".parties")
+
