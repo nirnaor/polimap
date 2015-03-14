@@ -116,6 +116,7 @@
           self.show_party_toast(party);
           self.fire("party-selected", {party: party});
         });
+        this.$.right_to_left.parties_multipliers = this.parties_multipliers;
       },
       show_party_toast: function(party){
         toast = this.$.toast;

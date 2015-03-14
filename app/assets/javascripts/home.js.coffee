@@ -158,6 +158,7 @@ $ ->
       map.setZoom(9)
 
     parties.parties = defaults
+    parties.parties_multipliers = window.party_multipliers;
     # parties.parties = [
     #   'gil'
     #   'nir'

@@ -2,6 +2,19 @@
  this is gil
 </h1>
 <script>
+  window.party_multipliers = {
+    'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה': 20000,
+    "הליכוד – תנועה לאומית ליברלית": 15000,
+    "יהדות התורה": 1000,
+    'התאחדות הספרדים שומרי תורה – תנועת ש”ס': 1000,
+    "קדימה": 500,
+    "יש עתיד": 500,
+    "התנועה בראשות ציפי לבני": 500,
+    "מפלגת העבודה הישראלית": 40,
+    "מרצ": 30,
+    "בלד": 20,
+    "חדש": 10
+  }
   parties = document.createElement("poli-map");
   parties.addEventListener("party-selected", function(ev){
     console.log("will change the map to " + ev.detail.party);
@@ -10,5 +23,6 @@
     console.log("will show right left map");
   });
   parties.parties = ["gil", "nir", "omer", "udi", "anat" ]
+  parties.parties_multipliers = window.party_multipliers;
   document.body.appendChild(parties);
 </script>

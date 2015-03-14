@@ -123,40 +123,7 @@
                       איך נעשה החישוב?
                       </h3>
                       המפלגות מסודרות לפי הסדר מימין לשמאל. לכל מפלגה יש ציון קבוע שמשקף את מידת הימניות שלה (לצורך החישוב יכלתי לבחור גם הפוך)
-                      <ul>
-                        <li>
-                      'הבית היהודי – מייסודם של האיחוד הלאומי והמפד”ל החדשה - 11 
-                        </li>
-                        <li>
-                      "הליכוד – תנועה לאומית ליברלית", - 10
-                        </li>
-                        <li>
-                      "יהדות התורה", -9 
-                        </li>
-                        <li>
-                      'התאחדות הספרדים שומרי תורה – תנועת ש”ס', - 8
-                        </li>
-                        <li>
-                      "קדימה", - 7
-                        </li>
-                        <li>
-                      "יש עתיד", -6
-                        </li>
-                        <li>
-                      "התנועה בראשות ציפי לבני", -5
-                        </li>
-                        <li>
-                      "מפלגת העבודה הישראלית", -4
-                        </li>
-                        <li>
-                      "מרצ", -3 
-                        </li>
-                        <li>
-                      "בלד", - 2
-                        </li>
-                        <li>
-                      "חדש" -1 
-                        </li>
+                      <ul id="list">
                       </ul>
 
                                        כל מפלגה תורמת למשקל של העיר, לפי כמה היא ימנית * אחוז המצביעים של המפלגה בעיר
@@ -184,7 +151,16 @@
     <script>
       Polymer({
         toggle: function(){
-          console.log("toggling");
+          console.log(this.parties_multipliers);
+
+          parties = Object.keys(this.parties_multipliers)
+          for(party in this.parties_multipliers){
+            party_multiplier = this.parties_multipliers[party]
+            list_item = document.createElement("li");
+            list_item.innerHTML = party + ":" + party_multiplier;
+            this.$.list.appendChild(list_item);
+
+          }
           this.$.dialog.toggle();
         }
       });
