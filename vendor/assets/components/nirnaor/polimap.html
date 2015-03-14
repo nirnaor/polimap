@@ -56,6 +56,12 @@
       <div   on-tap="{{open_dialog}}">מה זה?</div>
     </paper-toast>
 
+    <about-this id="about"></about-this>
+    <paper-button id="show-about-this"
+                  on-tap="{{on_about_this_clicked}}"
+    raised>
+    מה הולך פה?
+    </paper-button>
 
 
 
@@ -74,6 +80,9 @@
         relevant_dialog = this.$[dialog_id];
         relevant_dialog.toggle();
         console.log("open_dialog");
+      },
+      on_about_this_clicked: function(){
+        this.$.about.toggle();
       },
       on_show_right_to_left_map_clicked: function(ev){
         this.fire("show_right_left_map");

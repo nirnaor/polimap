@@ -182,6 +182,56 @@
       });
     </script>
 </polymer-element>
+<polymer-element name="about-this" >
+     <template>
+     <style>
+      paper-action-dialog{
+        height: 700px;
+        width: 700px;
+      }
+      core-toolbar{
+        background: rgb(84, 153 , 226);
+      }
+     </style>
+                <paper-action-dialog id="dialog" backdrop=""
+                autoclosedisabled="" layered="false" role="dialog" layout=""
+                vertical="" tabindex="-1" style="position: fixed; outline:
+                none; z-index: 12; top: 166.5px; left: 0px;">
+
+
+
+
+                    <core-toolbar class="core-header">
+                    <div>מה הולך פה?</div>
+                    </core-toolbar>
+                    <div class="explanation">
+
+
+
+
+                    </div>
+
+
+                    <paper-button affirmative="" autofocus="" role="button"
+                    tabindex="0">
+                      הבנתי
+                    </paper-button>
+
+
+
+
+                </paper-action-dialog>
+
+    </template>
+    <script>
+      Polymer({
+        toggle: function(){
+          console.log("toggling");
+          this.$.dialog.toggle();
+        }
+      });
+    </script>
+</polymer-element>
 
 <right-to-left-explanation>
 </right-to-left-explanation>
