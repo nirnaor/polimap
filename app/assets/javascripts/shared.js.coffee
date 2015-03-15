@@ -60,6 +60,7 @@ window.calculate_total_voters_in_country = (cities)->
   result
 
 window.add_social = ->
+    return
     social = $("<div class='polimap-social'>")
     $(".parties").prepend social
     url ="https://polimap.herokuapp.com"
